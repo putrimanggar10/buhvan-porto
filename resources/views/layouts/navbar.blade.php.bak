@@ -1,0 +1,129 @@
+<!-- ============================ NAV ============================ -->
+<header class="fixed top-0 inset-x-0 z-50">
+    <div class="mx-auto max-w-[1360px] px-6 lg:px-10">
+        <nav
+            class="mt-5 flex items-center justify-between rounded-full bg-navy-950/70 backdrop-blur-xl border border-white/10 pl-6 pr-3 py-3 text-white">
+            <a href="/" class="flex items-center gap-2.5">
+                <span
+                    class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-gold to-accent-goldDark grid place-items-center text-navy-950 font-extrabold text-sm">Z</span>
+                <span class="font-extrabold tracking-tight">ZD<span class="text-accent-gold">.</span>One</span>
+            </a>
+            <ul class="hidden lg:flex items-center gap-9 text-sm text-white/80">
+                <li><a href="/" class="ul-hover hover:text-white">Home</a></li>
+
+                <li class="relative group">
+                    <a href="#device-support" class="ul-hover hover:text-white flex items-center gap-1">Device
+                        Support</a>
+                    <!-- Mega Menu -->
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 top-full mt-6 w-[900px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+
+                        <div
+                            class="bg-white text-navy-950 rounded-2xl shadow-2xl p-8 grid grid-cols-3 gap-8 border border-gray-100">
+
+                            <!-- Column 1 -->
+                            <div>
+                                <h4 class="mb-3 text-gray-700 font-normal">Device Support</h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><a href="{{ route('device-monitoring') }}"
+                                            class="hover:text-accent-gold font-semibold">Device Monitoring</a></li>
+                                    <li><a href="{{ route('device-biometric') }}"
+                                            class="hover:text-accent-gold font-semibold">Biometric Readers</a>
+                                    </li>
+                                    <li><a href="{{ route('device-signage') }}"
+                                            class="hover:text-accent-gold font-semibold">Digital Signage</a>
+                                    </li>
+                                    <li><a href="{{ route('device-laptop') }}"
+                                            class="hover:text-accent-gold font-semibold">Laptops</a>
+                                    </li>
+                                    <li><a href="{{ route('device-tablet') }}"
+                                            class="hover:text-accent-gold font-semibold">Tablets</a>
+                                    </li>
+                                    <li><a href="{{ route('device-pos') }}"
+                                            class="hover:text-accent-gold font-semibold">POS Systems</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+
+                <li class="relative group">
+                    <a href="#solutions" class="ul-hover hover:text-white flex items-center gap-1">Solutions</a>
+                    <!-- Mega Menu -->
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 top-full mt-6 w-[900px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+
+                        <div
+                            class="bg-white text-navy-950 rounded-2xl shadow-2xl p-8 grid grid-cols-3 gap-8 border border-gray-100">
+
+                            <!-- Column 1 -->
+                            <div>
+                                <h4 class="mb-3 text-gray-700 font-normal">Solutions</h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><a href="{{ route('zd-one-platform') }}"
+                                            class="hover:text-accent-gold font-semibold">ZD One Platform</a>
+                                    </li>
+                                    <li><a href="{{ route('zd-remote') }}"
+                                            class="hover:text-accent-gold font-semibold">ZD Remote</a></li>
+                                    <li><a href="{{ route('zd-content-management') }}"
+                                            class="hover:text-accent-gold font-semibold">ZD Content
+                                            Management</a></li>
+                                    <li><a href="{{ route('zd-analytics') }}"
+                                            class="hover:text-accent-gold font-semibold">ZD Analytics</a></li>
+                                </ul>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </li>
+
+                <li class="relative group">
+                    <a href="#industries" class="ul-hover hover:text-white flex items-center gap-1">Industries</a>
+                    <!-- Mega Menu -->
+                    <div
+                        class="absolute left-1/2 -translate-x-1/2 top-full mt-6 w-[900px] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300">
+
+                        <div
+                            class="bg-white text-navy-950 rounded-2xl shadow-2xl p-8 grid grid-cols-3 gap-8 border border-gray-100">
+
+                            <!-- Column 1 -->
+                            <div>
+                                <h4 class="mb-3 text-gray-700 font-normal">Industries</h4>
+                                <ul class="space-y-2 text-sm">
+                                    <li><a href="{{ route('industries-retail') }}"
+                                            class="hover:text-accent-gold font-semibold">Retail</a>
+                                    </li>
+                                    <li><a href="{{ route('industries-manufacturing') }}"
+                                            class="hover:text-accent-gold font-semibold">Manufacturing</a></li>
+                                    <li><a href="{{ route('industries-banking-finance') }}"
+                                            class="hover:text-accent-gold font-semibold">Banking & Finance</a></li>
+                                    <li><a href="{{ route('industries-mining-oil-gas') }}"
+                                            class="hover:text-accent-gold font-semibold">Mining Oil & Gas</a></li>
+                                    <li><a href="{{ route('industries-healthcare') }}"
+                                            class="hover:text-accent-gold font-semibold">Healthcare</a></li>
+                                </ul>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </li>
+                <li><a href="/contact-us" class="ul-hover hover:text-white">Contact Us</a></li>
+            </ul>
+
+            <a href="#contact"
+                class="inline-flex items-center gap-2 rounded-full bg-accent-gold text-navy-950 px-5 py-2.5 text-sm font-bold hover:bg-white transition">
+                Book Demo
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2.5">
+                    <path d="M5 12h14M13 5l7 7-7 7" />
+                </svg>
+            </a>
+        </nav>
+    </div>
+</header>

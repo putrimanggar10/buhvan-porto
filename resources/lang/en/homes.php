@@ -1,0 +1,181 @@
+<?php
+
+return [
+    'nav' => [
+        'home' => 'Home',
+        'device_support' => 'Device Support',
+        'solutions' => 'Solutions',
+        'industries' => 'Industries',
+        'contact_us' => 'Contact Us',
+        'book_demo' => 'Book Demo',
+    ],
+    'hero' => [
+        'badge' => 'ENTERPRISE DEVICE MANAGEMENT',
+        'title' => [
+            'line1' => 'One',
+            'line2' => 'Platform',
+            'line3' => 'Multi Connect.'
+        ],
+        'subtitle' => 'Manage thousands of devices — from Smart Camera, biometrics, signage to POS — in one smart dashboard that stays synced across web, tablet, and mobile.',
+        'stats' => [
+            'skus' => 'Device SKUs supported',
+            'uptime' => 'Uptime SLA',
+            'monitoring' => 'Remote monitoring',
+        ],
+        'button' => 'Book a demo',
+        'watch_overview' => 'Watch Overview',
+        'skus' => 'Device SKUs supported',
+        'uptime' => 'Uptime SLA',
+        'monitoring' => 'Remote monitoring',
+    ],
+    'overview' => [
+        'label' => 'PLATFORM OVERVIEW',
+        'title1' => 'The ZD One Platform',
+        'title2' => 'Connect Everything',
+        'description' => 'The ZD One Platform delivers comprehensive control and operational visibility across your entire enterprise device ecosystem — all from a single, unified dashboard, with no compromises.',
+        'features' => [
+            'security' => 'Centralized security with end-to-end encryption.',
+            'security2' => 'Smart Camera, NVR, AI Box analytics.',
+            'deployment' => 'Deploy applications to thousands of devices in a single click.',
+            'deployment2' => 'fingerprint, facial, palm, vein, retina, iris.',
+            'troubleshoot' => 'Real-time remote diagnostics and troubleshooting.',
+            'analytics' => 'Live data insights and KPI metrics.',
+            'iot' => 'Structured orchestration for thousands of IoT endpoints.',
+            'iot2' => 'fully integrated',
+            'remote_troubleshooting' => 'Remote Troubleshooting',
+            'remote_troubleshooting2' => 'Real-time remote diagnostics and troubleshooting.',
+            'iot_deployment' => 'IoT Deployment',
+            'iot_deployment2' => 'Structured orchestration for thousands of IoT endpoints.',
+            'remote_troubleshooting' => 'Remote Troubleshooting',
+            'remote_troubleshooting2' => 'Real-time remote diagnostics and troubleshooting.',
+            'deployment' => 'Deploy applications to thousands of devices in a single click.',
+            'deployment2' => 'Performance Analytics',
+            'analytics' => 'Live data insights and KPI metrics.',
+            'book_demo' => 'Book Demo',
+            'book_demo2' => 'No credit card required · 30-minute live consultation',
+            'product_demo' => 'Product Demo',
+            'see_zd_one_platform' => 'See ZD One Platform in action',
+        ],
+    ],
+    'capabilities' => [
+        'tag' => 'Capabilities',
+        'title' => 'What',
+        'title2' => 'Can Do ',
+        'title3' => 'For Your Business',
+        'subtitle' => 'Five core pillars that transform how enterprises manage devices in the field.',
+
+        'features' => [
+            'enterprise' => [
+                'title' => "Enterprise\nManagement",
+                'desc' => 'Centralized orchestration for large-scale organizations.',
+            ],
+            'downtime' => [
+                'title' => "Minimize\nDowntime",
+                'desc' => 'Detect anomalies before they cause impact.',
+            ],
+            'simplify' => [
+                'title' => "Simplify\nBusiness",
+                'desc' => 'Standardized workflows across teams.',
+            ],
+            'remote' => [
+                'title' => "Remote\nTroubleshooting",
+                'desc' => 'Fix and patch issues without on-site visits.',
+            ],
+            'performance' => [
+                'title' => "Performance\nAnalysis",
+                'desc' => 'Real-time KPI reports and dashboards.',
+            ],
+        ],
+    ],
+    'partners' => [
+        'tag' => 'Ecosystem',
+        'title1' => 'ZD One Platform',
+        'title2' => 'Brand Partners',
+        'subtitle' => 'Integrated with world-class hardware and OS vendors — an open ecosystem with no vendor lock-in.',
+    ],
+    'trusted_by' => [
+        'tag' => 'Trusted By',
+        'title1' => 'ZD One Platform',
+        'title2' => 'Valued Customers',
+    ],
+    'device_support' => [
+        'tag' => 'Device Support',
+        'title1' => 'One platform.',
+        'title2' => 'All devices.',
+        'title3' => 'You',
+        'subtitle' => 'From surveillance cameras to biometric readers, from digital signage to POS systems — ZD One fully integrates to manage your entire enterprise endpoint ecosystem.',
+        'categories' => [
+            'surveillance' => 'Surveillance',
+            'biometrics' => 'Biometrics',
+            'digital_signage' => 'Digital Signage',
+            'laptops' => 'Laptops',
+            'tablets' => 'Tablets',
+            'pos' => 'POS Systems',
+        ],
+        'surveillance' => [
+            'tag' => 'Surveillance',
+            'title' => "Intelligent\nMonitoring System",
+            'desc' => 'Enterprise surveillance platform with cameras, recording, and AI analytics in one
+                                system — 24/7 visibility without blind spots.',
+            'smart_camera' => 'Smart Camera',
+            'monitoring' => 'Real-time visual monitoring across locations in 4K.',
+            'nvr' => 'NVR (Network Video Recorder)',
+            'nvr_desc' => 'Centralized network recording with retention controls.',
+            'smart_ai_camera' => 'Smart AI Camera Functions',
+            'object_detection' => 'Object & face detection with behavior analysis.',
+            'ai_box' => 'AI Box',
+            'edge_ai' => 'Edge AI for real-time local analytics, no cloud.',
+            'vms' => 'Video Management System (VMS)',
+            'vms_desc' => 'Manage, view & control all camera feeds in one place.',
+            'integrated_devices' => 'Integrated Devices',
+        ],
+        'biometrics' => [
+            'tag' => 'Biometrics',
+            'title' => "Multi Biometric<br />Readers",
+            'desc' => 'Multi-modal authentication for advanced security — combine biometric methods according to your compliance & accuracy needs.',
+            'fingerprint' => 'Fingerprint',
+            'fingerprint_desc' => 'Optical & capacitive scan with anti-spoofing.',
+            'face' => 'Face',
+            'face_desc' => 'Touchless facial ID — hygienic and fast.',
+            'palm' => 'Palm',
+            'palm_desc' => 'Contactless palm scan for high-traffic access.',
+            'vein' => 'Vein',
+            'vein_desc' => 'Vein scan for high-security areas & compliance.',
+            'multi_biometric' => 'Multi Biometric',
+            'multi_biometric_desc' => 'Combine methods for layered security & accuracy.',
+            'biometric_methods' => 'biometric methods',
+        ],
+        'digital_signage' => [
+            'tag' => 'Signage',
+            'title' => "Digital<br />Signage",
+            'desc' => 'Remote visual content management — distribute information & promotions to thousands of screens, centrally and on schedule.',
+            'led_lcd' => 'LED & LCD Displays',
+            'led_lcd_desc' => 'Native integration with Samsung, LG & video walls.',
+            'content_scheduling' => 'Content Scheduling CMS',
+            'content_scheduling_desc' => 'Playlist, scheduling & targeting per zone.',
+            'multi_region_deployment' => 'Multi-region Deployment',
+            'multi_region_deployment_desc' => 'Deploy to multiple locations with one click.',
+            'localized_content' => 'Push localized content to branches with one click.',
+            'real_time_sync' => 'Real-time Sync & Preview',
+            'update_playlists' => 'Update playlists with live preview across screens.',
+            'audience_analytics' => 'Audience Analytics',
+            'track_impressions' => 'Track impressions, dwell time & performance per screen.',
+            'signage_features' => '5 signage features',
+        ],
+        'laptops' => [
+            'tag' => 'Laptops',
+            'title' => "Laptops & Workstations",
+            'desc' => 'Endpoint management for hybrid, remote, and field teams — enterprise laptops & workstations under one centralized control.',
+
+        ],
+    ],
+    'footer' => [
+        'tagline' => 'Connecting everything, empowering business through unified device management.',
+        'rights' => 'All Rights Reserved.',
+    ],
+
+
+    
+];
+
+

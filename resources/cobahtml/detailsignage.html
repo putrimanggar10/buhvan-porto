@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Digital Signage — ZD One Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif&display=swap"
+        rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            950: '#050e24',
+                            900: '#0a1630',
+                            800: '#0f2451',
+                            700: '#14306b',
+                            600: '#1d3f82'
+                        },
+                        brand: {
+                            green: '#085410',
+                            greenLight: '#0c7a19'
+                        },
+                        accent: {
+                            gold: '#f5c249',
+                            goldDark: '#d9a82f'
+                        }
+                    },
+                    fontFamily: {
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        serif: ['Instrument Serif', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #fafaf7;
+            color: #0a1630;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .circuit-bg {
+            background-color: #050e24;
+            background-image:
+                radial-gradient(ellipse at top right, rgba(245, 194, 73, 0.08), transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(29, 63, 130, 0.35), transparent 60%),
+                linear-gradient(rgba(245, 194, 73, 0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(245, 194, 73, 0.04) 1px, transparent 1px);
+            background-size: auto, auto, 60px 60px, 60px 60px;
+        }
+
+        .grid-overlay {
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 48px 48px;
+        }
+
+        .ul-hover {
+            position: relative;
+        }
+
+        .ul-hover::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0;
+            height: 1.5px;
+            background: #f5c249;
+            transition: width .3s ease;
+        }
+
+        .ul-hover:hover::after {
+            width: 100%;
+        }
+
+        .tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .rise {
+            animation: rise .9s cubic-bezier(.2, .8, .2, 1) both;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            transition: opacity .8s cubic-bezier(.2, .8, .2, 1), transform .8s cubic-bezier(.2, .8, .2, 1);
+        }
+
+        .reveal.in {
+            opacity: 1;
+            transform: none;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #0a1630;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #eee;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+    @include('layouts.navbar')
+
+    <!-- HERO -->
+    <section class="circuit-bg relative pt-36 pb-20 lg:pt-44 lg:pb-28 text-white overflow-hidden">
+        <div class="grid-overlay absolute inset-0 opacity-60"></div>
+
+        <div class="relative mx-auto max-w-[1360px] px-6 lg:px-10 mt-8">
+            <div class="flex flex-wrap gap-2">
+                <a href="/device-monitoring"
+                    class="inline-flex items-center gap-2 rounded-full border border-white/15 text-white/70 hover:bg-white/10 px-4 py-2 text-xs font-bold transition">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent-gold"></span>
+                    A · Surveillance
+                </a>
+                <a href="/device-biometric"
+                    class="inline-flex items-center gap-2 rounded-full border border-white/15 text-white/70 hover:bg-white/10 px-4 py-2 text-xs font-bold transition">
+                    <span class="w-1.5 h-1.5 rounded-full bg-brand-green"></span>
+                    B · Biometric
+                </a>
+                <a href="/device-signage"
+                    class="inline-flex items-center gap-2 rounded-full bg-accent-gold text-navy-950 px-4 py-2 text-xs font-bold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-navy-950"></span>
+                    C · Digital Signage
+                </a>
+                <a href="/device-hardware"
+                    class="inline-flex items-center gap-2 rounded-full border border-white/15 text-white/70 hover:bg-white/10 px-4 py-2 text-xs font-bold transition">
+                    <span class="w-1.5 h-1.5 rounded-full bg-navy-600"></span>
+                    D · Laptops
+                </a>
+                <a href="/device-hardware"
+                    class="inline-flex items-center gap-2 rounded-full border border-white/15 text-white/70 hover:bg-white/10 px-4 py-2 text-xs font-bold transition">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#3b82f6]"></span>
+                    E · Tablets
+                </a>
+                <a href="/device-hardware"
+                    class="inline-flex items-center gap-2 rounded-full border border-white/15 text-white/70 hover:bg-white/10 px-4 py-2 text-xs font-bold transition">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#ef7a55]"></span>
+                    F · POS Systems
+                </a>
+            </div>
+        </div>
+
+        <div class="relative mx-auto max-w-[1360px] px-6 lg:px-10 mt-12 grid lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 rise">
+                <div
+                    class="inline-flex items-center gap-2 rounded-full border border-accent-gold/40 bg-accent-gold/15 px-3 py-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-accent-gold animate-pulse"></span>
+                    <span class="tag text-accent-gold">Category C · Display Network</span>
+                </div>
+                <h1 class="mt-7 font-extrabold tracking-[-0.03em] leading-[0.95] text-[clamp(2.5rem,6vw,5.5rem)]">
+                    Digital<br />
+                    <span class="text-accent-gold italic font-serif font-normal">Signage.</span>
+                </h1>
+                <p class="mt-7 max-w-xl text-white/70 text-lg leading-relaxed">
+                    Remote visual content management — distribution of information, promotions, and campaigns to thousands of digital screens centrally, simultaneously, and scheduled across all your branches.
+                </p>
+                <div class="mt-9 flex flex-wrap items-center gap-3">
+                    <a href="zd-one-platform.html#contact"
+                        class="inline-flex items-center gap-2 rounded-full bg-accent-gold text-navy-950 px-6 py-3.5 font-bold hover:bg-white transition">
+                        Book Demo
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2.5">
+                            <path d="M5 12h14M13 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                    <a href="#solutions"
+                        class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 px-6 py-3.5 font-semibold">
+                        Explore features
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 rise" style="animation-delay:.15s">
+                <div class="relative rounded-3xl bg-white/5 backdrop-blur border border-accent-gold/20 p-8">
+                    <div class="absolute inset-0 grid-overlay opacity-20 rounded-3xl"></div>
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-accent-gold/30 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="tag text-accent-gold mb-4">Quick Overview</div>
+                        <div class="grid grid-cols-2 gap-6">
+                            <div>
+                                <div class="font-extrabold text-4xl">10K<span class="text-accent-gold">+</span></div>
+                                <div class="text-xs text-white/60 mt-1">Concurrent screens</div>
+                            </div>
+                            <div>
+                                <div class="font-extrabold text-4xl">4K</div>
+                                <div class="text-xs text-white/60 mt-1">UHD streaming support</div>
+                            </div>
+                            <div>
+                                <div class="font-extrabold text-4xl">&lt;5<span class="text-accent-gold">s</span></div>
+                                <div class="text-xs text-white/60 mt-1">Push-to-display latency</div>
+                            </div>
+                            <div>
+                                <div class="font-extrabold text-4xl">24<span class="text-accent-gold">/7</span></div>
+                                <div class="text-xs text-white/60 mt-1">Uptime monitoring</div>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-white/10">
+                            <div class="tag text-white/50 mb-3">Supported OS</div>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="text-xs bg-white/5 border border-white/10 rounded-full px-3 py-1">Android</span>
+                                <span class="text-xs bg-white/5 border border-white/10 rounded-full px-3 py-1">Samsung
+                                    Tizen</span>
+                                <span class="text-xs bg-white/5 border border-white/10 rounded-full px-3 py-1">LG
+                                    WebOS</span>
+                                <span class="text-xs bg-white/5 border border-white/10 rounded-full px-3 py-1">Windows
+                                    IoT</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 1. OVERVIEW -->
+    <section class="bg-[#fafaf7] py-24 lg:py-28">
+        <div class="mx-auto max-w-[1360px] px-6 lg:px-10 grid lg:grid-cols-12 gap-12">
+            <div class="lg:col-span-4 reveal">
+                <div class="tag text-brand-green mb-4">01 — Overview</div>
+                <h2 class="font-extrabold tracking-tight text-[clamp(2rem,3.5vw,3rem)] leading-[1.05]">
+                    What is <span class="italic font-serif font-normal text-accent-goldDark">Digital Signage?</span>
+                </h2>
+            </div>
+            <div class="lg:col-span-8 reveal" style="transition-delay:.1s">
+                <p class="text-lg text-navy-900/75 leading-relaxed">
+                    Digital Signage is a system for distributing visual content through a network of <strong
+                        class="text-navy-900">smart electronic displays</strong> — LED, LCD, video wall, or interactive kiosks — centrally managed from a single dashboard. ZD One Platform enables marketing, operations, and IT to schedule, push, and monitor content across hundreds of locations without the need for physical visits.
+                </p>
+                <p class="mt-5 text-navy-900/65 leading-relaxed">
+                    More than just a "big TV", modern digital signage is a <strong class="text-navy-900">strategic communication medium</strong>: displaying promotions based on time, conveying safety information in factories, running queue displays in hospitals, or serving as interactive wayfinding in malls. All content can be personalized by location, by hour, and even by audience through integration with
+                    data analytics.
+                </p>
+
+                <div class="mt-10 grid sm:grid-cols-3 gap-5">
+                    <div class="bg-white border border-navy-900/10 rounded-2xl p-5">
+                        <div class="w-11 h-11 rounded-xl bg-accent-gold/15 grid place-items-center mb-4">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d9a82f"
+                                stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                        </div>
+                        <div class="font-bold text-navy-900">Remote update</div>
+                        <p class="text-xs text-navy-900/60 mt-1.5">Push content to thousands of screens in seconds.
+                        </p>
+                    </div>
+                    <div class="bg-white border border-navy-900/10 rounded-2xl p-5">
+                        <div class="w-11 h-11 rounded-xl bg-accent-gold/15 grid place-items-center mb-4">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d9a82f"
+                                stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" />
+                                <line x1="16" y1="2" x2="16" y2="6" />
+                                <line x1="8" y1="2" x2="8" y2="6" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                            </svg>
+                        </div>
+                        <div class="font-bold text-navy-900">Scheduled playback</div>
+                        <p class="text-xs text-navy-900/60 mt-1.5">Schedule campaigns by hour, day, or specific date.</p>
+                    </div>
+                    <div class="bg-white border border-navy-900/10 rounded-2xl p-5">
+                        <div class="w-11 h-11 rounded-xl bg-accent-gold/15 grid place-items-center mb-4">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#d9a82f"
+                                stroke-width="2">
+                                <path d="M3 3h18v18H3zM9 3v18M15 3v18M3 9h18M3 15h18" />
+                            </svg>
+                        </div>
+                        <div class="font-bold text-navy-900">Multi-zone layout</div>
+                        <p class="text-xs text-navy-900/60 mt-1.5">Split screens with different content per region.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. PROBLEMS -->
+    <section class="bg-white py-24 lg:py-28 border-t border-navy-900/5">
+        <div class="mx-auto max-w-[1360px] px-6 lg:px-10">
+            <div class="max-w-3xl reveal">
+                <div class="tag text-red-500 mb-4">02 — Problems We Solve</div>
+                <h2 class="font-extrabold tracking-tight text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">
+                    Communication problems<br /><span
+                        class="italic font-serif font-normal text-accent-goldDark">across multiple locations.</span>
+                </h2>
+                <p class="mt-5 text-navy-900/60 text-lg">
+                    Without a centralized signage system, marketing campaigns are delayed, important information doesn't reach the frontline, and content production budgets are inefficient.
+                </p>
+            </div>
+
+            <div class="mt-14 grid md:grid-cols-2 gap-5">
+                <div
+                    class="reveal group bg-gradient-to-br from-red-50 to-white border border-red-100 rounded-2xl p-7 hover:shadow-lg transition">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-100 grid place-items-center shrink-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc2626"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="8" x2="12" y2="12" />
+                                <line x1="12" y1="16" x2="12.01" y2="16" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="tag text-red-500 mb-1">Problem 01</div>
+                            <h3 class="font-extrabold text-xl text-navy-900">Content updates are slow & manual</h3>
+                            <p class="mt-2.5 text-sm text-navy-900/65 leading-relaxed">
+                                The marketing team has to send promo files via USB/email to each branch. During a 6-hour flash sale campaign, many branches haven't had time to update content — sales opportunities are lost.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal group bg-gradient-to-br from-red-50 to-white border border-red-100 rounded-2xl p-7 hover:shadow-lg transition"
+                    style="transition-delay:.08s">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-100 grid place-items-center shrink-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc2626"
+                                stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="tag text-red-500 mb-1">Problem 02</div>
+                            <h3 class="font-extrabold text-xl text-navy-900">Content is not relevant per location</h3>
+                            <p class="mt-2.5 text-sm text-navy-900/65 leading-relaxed">
+                                Promo Bali is displayed in the Medan branch. Product prices that differ per city appear incorrectly.
+                                Personalization per region requires granular control not available in legacy systems.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal group bg-gradient-to-br from-red-50 to-white border border-red-100 rounded-2xl p-7 hover:shadow-lg transition"
+                    style="transition-delay:.16s">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-100 grid place-items-center shrink-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc2626"
+                                stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <path d="M9 9l6 6M15 9l-6 6" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="tag text-red-500 mb-1">Problem 03</div>
+                            <h3 class="font-extrabold text-xl text-navy-900">Unknown screen hangs</h3>
+                            <p class="mt-2.5 text-sm text-navy-900/65 leading-relaxed">
+                                Digital displays at branches go offline or freeze, but it's only noticed when staff pass by.
+                                Meanwhile, customers see blank screens for hours — damaging the brand image.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal group bg-gradient-to-br from-red-50 to-white border border-red-100 rounded-2xl p-7 hover:shadow-lg transition"
+                    style="transition-delay:.24s">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-100 grid place-items-center shrink-0">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#dc2626"
+                                stroke-width="2">
+                                <line x1="12" y1="1" x2="12" y2="23" />
+                                <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
+                            </svg>
+                        </div>
+                        <div class="flex-1">
+                            <div class="tag text-red-500 mb-1">Problem 04</div>
+                            <h3 class="font-extrabold text-xl text-navy-900">No ROI tracking</h3>
+                            <p class="mt-2.5 text-sm text-navy-900/65 leading-relaxed">
+                                There is no concrete data on whether signage content is actually displayed, at what time, and how often. Marketing struggles to evaluate campaigns without proof-of-play reports.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SOLUTIONS -->
+    <section id="solutions" class="bg-navy-950 text-white py-24 lg:py-28 relative overflow-hidden">
+        <div class="absolute inset-0 grid-overlay opacity-30"></div>
+        <div class="absolute top-20 right-0 w-[500px] h-[500px] bg-accent-gold/15 rounded-full blur-3xl"></div>
+
+        <div class="relative mx-auto max-w-[1360px] px-6 lg:px-10">
+            <div class="max-w-3xl reveal">
+                <div class="tag text-accent-gold mb-4">03 — Our Solutions</div>
+                <h2 class="font-extrabold tracking-tight text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">
+                    How ZD One<br /><span
+                        class="italic font-serif font-normal text-accent-gold">solves it.</span>
+                </h2>
+                <p class="mt-5 text-white/65 text-lg">
+                    A signage-specific CMS designed for enterprise scale — from 10 screens to 10,000 screens within
+                    a single interface.
+                </p>
+            </div>
+
+            <div class="mt-14 grid md:grid-cols-2 gap-5">
+                <div
+                    class="reveal bg-white/5 border border-white/10 rounded-2xl p-7 backdrop-blur hover:bg-white/10 transition">
+                    <div class="flex items-start justify-between mb-5">
+                        <div class="w-12 h-12 rounded-xl bg-accent-gold text-navy-950 grid place-items-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" />
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" />
+                            </svg>
+                        </div>
+                        <span class="tag text-accent-gold">→ Solves P01</span>
+                    </div>
+                    <h3 class="font-extrabold text-xl">Cloud Push Engine</h3>
+                    <p class="mt-3 text-sm text-white/70 leading-relaxed">
+                        Upload content once, distribute to all target screens within seconds. Drag-and-drop
+                        campaign builder for non-technical marketing teams.
+                    </p>
+                    <ul class="mt-4 space-y-1.5 text-xs text-white/60">
+                        <li class="flex items-center gap-2">→ Global push in &lt;5 seconds</li>
+                        <li class="flex items-center gap-2">→ Rollback to previous versions</li>
+                        <li class="flex items-center gap-2">→ Preview before go-live</li>
+                    </ul>
+                </div>
+
+                <div class="reveal bg-white/5 border border-white/10 rounded-2xl p-7 backdrop-blur hover:bg-white/10 transition"
+                    style="transition-delay:.08s">
+                    <div class="flex items-start justify-between mb-5">
+                        <div class="w-12 h-12 rounded-xl bg-accent-gold text-navy-950 grid place-items-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5">
+                                <circle cx="12" cy="12" r="3" />
+                                <circle cx="12" cy="12" r="8" />
+                            </svg>
+                        </div>
+                        <span class="tag text-accent-gold">→ Solves P02</span>
+                    </div>
+                    <h3 class="font-extrabold text-xl">Targeted Distribution</h3>
+                    <p class="mt-3 text-sm text-white/70 leading-relaxed">
+                        Group screens by region, city, or branch type. Content automatically adjusts language,
+                        currency, and local promotions according to the rules set.
+                    </p>
+                    <ul class="mt-4 space-y-1.5 text-xs text-white/60">
+                        <li class="flex items-center gap-2">→ Region-based targeting</li>
+                        <li class="flex items-center gap-2">→ Dynamic content variable</li>
+                        <li class="flex items-center gap-2">→ Data feed integration (API)</li>
+                    </ul>
+                </div>
+
+                <div class="reveal bg-white/5 border border-white/10 rounded-2xl p-7 backdrop-blur hover:bg-white/10 transition"
+                    style="transition-delay:.16s">
+                    <div class="flex items-start justify-between mb-5">
+                        <div class="w-12 h-12 rounded-xl bg-accent-gold text-navy-950 grid place-items-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5">
+                                <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                                <polyline points="22 4 12 14.01 9 11.01" />
+                            </svg>
+                        </div>
+                        <span class="tag text-accent-gold">→ Solves P03</span>
+                    </div>
+                    <h3 class="font-extrabold text-xl">Health Monitoring 24/7</h3>
+                    <p class="mt-3 text-sm text-white/70 leading-relaxed">
+                        Real-time dashboard for screen status — online, offline, freeze, or error. Remote auto-restart
+                        and alerts to the IT team when issues occur.
+                    </p>
+                    <ul class="mt-4 space-y-1.5 text-xs text-white/60">
+                        <li class="flex items-center gap-2">→ Auto-restart on freeze</li>
+                        <li class="flex items-center gap-2">→ Screenshot monitoring</li>
+                        <li class="flex items-center gap-2">→ SMS/email alert</li>
+                    </ul>
+                </div>
+
+                <div class="reveal bg-white/5 border border-white/10 rounded-2xl p-7 backdrop-blur hover:bg-white/10 transition"
+                    style="transition-delay:.24s">
+                    <div class="flex items-start justify-between mb-5">
+                        <div class="w-12 h-12 rounded-xl bg-accent-gold text-navy-950 grid place-items-center">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5">
+                                <line x1="18" y1="20" x2="18" y2="10" />
+                                <line x1="12" y1="20" x2="12" y2="4" />
+                                <line x1="6" y1="20" x2="6" y2="14" />
+                            </svg>
+                        </div>
+                        <span class="tag text-accent-gold">→ Solves P04</span>
+                    </div>
+                    <h3 class="font-extrabold text-xl">Proof-of-Play Analytics</h3>
+                    <p class="mt-3 text-sm text-white/70 leading-relaxed">
+                        Detailed reports: what content is playing on which screen, when, and for how long. Integration with AI cameras
+                        for audience measurement — age, gender, engagement time.
+                    </p>
+                    <ul class="mt-4 space-y-1.5 text-xs text-white/60">
+                        <li class="flex items-center gap-2">→ Campaign ROI report</li>
+                        <li class="flex items-center gap-2">→ Audience demographics</li>
+                        <li class="flex items-center gap-2">→ Heatmap engagement</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. CONNECTED DEVICES -->
+    <section class="bg-white py-24 lg:py-28">
+        <div class="mx-auto max-w-[1360px] px-6 lg:px-10">
+            <div class="flex flex-wrap items-end justify-between gap-8 reveal">
+                <div class="max-w-2xl">
+                    <div class="tag text-brand-green mb-4">04 — Connected Devices</div>
+                    <h2 class="font-extrabold tracking-tight text-[clamp(2rem,4vw,3.5rem)] leading-[1.05]">
+                        Devices that<br /><span class="italic font-serif font-normal text-accent-goldDark">can be connected.</span>
+                    </h2>
+                </div>
+                <p class="max-w-md text-navy-900/65">
+                    Three most commonly used display categories — all integrated through the native ZD agent.
+                </p>
+            </div>
+
+            <div class="mt-14 grid md:grid-cols-3 gap-5">
+                <!-- 1: LED/LCD Display -->
+                <article
+                    class="reveal group bg-gradient-to-br from-navy-950 to-navy-900 text-white rounded-3xl p-8 overflow-hidden relative hover:-translate-y-1 transition">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-accent-gold/20 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="tag text-accent-gold">01 · Display</span>
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-accent-gold/15 border border-accent-gold/30 grid place-items-center">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    stroke="#f5c249" stroke-width="1.8">
+                                    <rect x="2" y="3" width="20" height="14" rx="2" />
+                                    <path d="M8 21h8m-4-4v4" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-2xl">LED & LCD Displays</h3>
+                        <p class="mt-3 text-sm text-white/70 leading-relaxed">Commercial-grade screens for
+                            indoor/outdoor use with brightness up to 5000 nits.</p>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <div class="tag text-white/50 mb-3">Form Factors</div>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Single display (32"-98")
+                                </li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Video wall (2x2, 3x3,
+                                    custom)</li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> LED mesh outdoor giant</li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Portrait totem display</li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Transparent OLED</li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <div class="tag text-white/50 mb-3">Brands</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">Samsung</span>
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">LG</span>
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">Philips</span>
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">BenQ</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 2: Media Player -->
+                <article
+                    class="reveal group bg-gradient-to-br from-navy-950 to-navy-900 text-white rounded-3xl p-8 overflow-hidden relative hover:-translate-y-1 transition"
+                    style="transition-delay:.1s">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-accent-gold/20 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="tag text-accent-gold">02 · Player</span>
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-accent-gold/15 border border-accent-gold/30 grid place-items-center">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    stroke="#f5c249" stroke-width="1.8">
+                                    <rect x="3" y="4" width="18" height="14" rx="2" />
+                                    <path d="M10 10l5 3-5 3z" fill="#f5c249" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-2xl">Media Players</h3>
+                        <p class="mt-3 text-sm text-white/70 leading-relaxed">Content playback devices mounted behind the display — dedicated hardware or internal SoC.</p>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <div class="tag text-white/50 mb-3">Player Types</div>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Android box
+                                    (Rockchip/Allwinner)</li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Windows mini-PC (Intel NUC)
+                                </li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> BrightSign players</li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Samsung Tizen SoC built-in
+                                </li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> LG WebOS SoC built-in</li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <div class="tag text-white/50 mb-3">Supported Codecs</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">H.264/265</span>
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">VP9</span>
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">AV1</span>
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">HLS/DASH</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 3: Interactive Kiosk -->
+                <article
+                    class="reveal group bg-gradient-to-br from-navy-950 to-navy-900 text-white rounded-3xl p-8 overflow-hidden relative hover:-translate-y-1 transition"
+                    style="transition-delay:.2s">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-accent-gold/20 rounded-full blur-3xl"></div>
+                    <div class="relative">
+                        <div class="flex items-center justify-between mb-6">
+                            <span class="tag text-accent-gold">03 · Kiosk</span>
+                            <div
+                                class="w-14 h-14 rounded-2xl bg-accent-gold/15 border border-accent-gold/30 grid place-items-center">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                                    stroke="#f5c249" stroke-width="1.8">
+                                    <rect x="5" y="3" width="14" height="18" rx="2" />
+                                    <circle cx="12" cy="17" r="1" fill="currentColor" />
+                                </svg>
+                            </div>
+                        </div>
+                        <h3 class="font-extrabold text-2xl">Interactive Kiosks</h3>
+                        <p class="mt-3 text-sm text-white/70 leading-relaxed">Self-service touch screens for ordering,
+                            wayfinding, check-in, and surveys.</p>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <div class="tag text-white/50 mb-3">Kiosk Types</div>
+                            <ul class="space-y-2 text-sm">
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Self-order (F&B)</li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Wayfinding (mall, airport)
+                                </li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Queue check-in (clinic)
+                                </li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Info terminal (hotel)</li>
+                                <li class="flex items-center gap-2"><span
+                                        class="w-1 h-1 rounded-full bg-accent-gold"></span> Photobooth & branded</li>
+                            </ul>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-white/10">
+                            <div class="tag text-white/50 mb-3">Input Methods</div>
+                            <div class="flex flex-wrap gap-1.5">
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">Touch</span>
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">QR Scanner</span>
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">NFC/RFID</span>
+                                <span class="text-[10px] bg-white/10 rounded px-2 py-1">Printer</span>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Final CTA -->
+            <div
+                class="mt-16 reveal bg-gradient-to-br from-accent-gold to-accent-goldDark rounded-3xl p-10 lg:p-14 relative overflow-hidden">
+                <div class="absolute inset-0 grid-overlay opacity-20"></div>
+                <div class="relative grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="tag text-navy-950/70 mb-3">Light up your brand</div>
+                        <h3 class="font-extrabold text-navy-950 text-3xl lg:text-4xl leading-tight">Manage all your screens from a single dashboard.</h3>
+                        <p class="mt-4 text-navy-950/75">From a pilot in 10 branches to a national network of 1,000+ displays — we handle the scale.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-3 md:justify-end">
+                        <a href="zd-one-platform.html#contact"
+                            class="inline-flex items-center gap-2 rounded-full bg-navy-950 text-white px-7 py-4 font-bold hover:bg-white hover:text-navy-950 transition">
+                            Book Demo
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2.5">
+                                <path d="M5 12h14M13 5l7 7-7 7" />
+                            </svg>
+                        </a>
+                        <a href="zd-one-platform.html#device-support"
+                            class="inline-flex items-center gap-2 rounded-full border-2 border-navy-950 text-navy-950 px-7 py-4 font-bold hover:bg-navy-950 hover:text-white transition">
+                            Back to Device Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @include('layouts.footer')
+
+    <script>
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    io.unobserve(e.target);
+                }
+            });
+        }, {
+            threshold: 0.12
+        });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
+
+</body>
+
+</html>
