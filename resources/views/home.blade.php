@@ -2000,6 +2000,268 @@
         </div>
     </section>
 
+    <!-- ============================ CONTACT US ============================ -->
+    <section id="contact-us" class="bg-white py-24 overflow-hidden">
+        <div
+            class="absolute inset-0 bg-[radial-gradient(circle_at_10%_80%,rgba(8,84,16,0.08),transparent_35%),radial-gradient(circle_at_90%_20%,rgba(245,194,73,0.16),transparent_35%)]">
+        </div>
+
+        <div class="relative mx-auto max-w-[1360px] px-6 lg:px-10">
+            <div class="grid items-start gap-14 lg:grid-cols-12">
+
+                <!-- LEFT INFO -->
+                <div class="lg:col-span-5">
+                    <div class="tag mb-5 text-brand-green">— Contact Us</div>
+
+                    <h1
+                        class="text-[clamp(3rem,6vw,5.8rem)] font-extrabold leading-[0.95] tracking-[-0.04em] text-navy-900">
+                        Let's build<br>
+                        <span class="font-serif italic font-normal text-accent-goldDark">
+                            your ecosystem.
+                        </span>
+                    </h1>
+
+                    <p class="mt-8 max-w-md text-lg leading-relaxed text-navy-900/60">
+                        kata kata ini di isi putri
+                    </p>
+
+                    <div class="mt-14 space-y-7">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="grid h-12 w-12 place-items-center rounded-2xl bg-brand-green/10 text-brand-green">
+                                <svg width="22" height="22" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+                                    <path d="m3 7 9 6 9-6"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-sm text-navy-900/40">Email</div>
+                                <div class="font-extrabold text-navy-900">riancihuy@abcdf.com</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="grid h-12 w-12 place-items-center rounded-2xl bg-brand-green/10 text-brand-green">
+                                <svg width="22" height="22" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.08 5.18 2 2 0 0 1 5.06 3h3a2 2 0 0 1 2 1.72c.12.9.32 1.77.57 2.61a2 2 0 0 1-.45 2.11L9 10.62a16 16 0 0 0 4.38 4.38l1.18-1.18a2 2 0 0 1 2.11-.45c.84.25 1.71.45 2.61.57A2 2 0 0 1 22 16.92z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-sm text-navy-900/40">Phone</div>
+                                <div class="font-extrabold text-navy-900">+62 8123456789</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div
+                                class="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-brand-green/10 text-brand-green">
+                                <svg width="22" height="22" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <path d="M12 21s7-4.35 7-11a7 7 0 1 0-14 0c0 6.65 7 11 7 11z"></path>
+                                    <circle cx="12" cy="10" r="2.5"></circle>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="text-sm text-navy-900/40">Office</div>
+                                <div class="font-extrabold text-navy-900">BHUVAN</div>
+                                <div class="text-sm text-navy-900/50">
+                                    BSD City, Tangerang, Indonesia
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- <div class="mt-14 flex items-center gap-3">
+                        <span class="mr-2 text-navy-900/35">Follow us</span>
+
+                        <a href="#"
+                            class="grid h-11 w-11 place-items-center rounded-full border border-navy-900/10 bg-white text-navy-900 hover:bg-accent-gold transition">
+                            in
+                        </a>
+                        <a href="#"
+                            class="grid h-11 w-11 place-items-center rounded-full border border-navy-900/10 bg-white text-navy-900 hover:bg-accent-gold transition">
+                            X
+                        </a>
+                        <a href="#"
+                            class="grid h-11 w-11 place-items-center rounded-full border border-navy-900/10 bg-white text-navy-900 hover:bg-accent-gold transition">
+                            ▶
+                        </a>
+                    </div> --}}
+                </div>
+
+                <!-- RIGHT FORM -->
+                <div class="lg:col-span-7">
+                    <div class="rounded-[2rem] bg-white p-7 shadow-[0_30px_100px_rgba(10,22,48,0.08)] lg:p-10">
+                        <div class="mb-9 flex items-start justify-between">
+                            <div>
+                                <h2 class="text-3xl font-extrabold tracking-tight text-navy-900">Book a Demo</h2>
+                                <p class="mt-1 text-navy-900/50">Our sales team responds within 24 hours.</p>
+                            </div>
+
+                            <div class="grid h-12 w-12 place-items-center rounded-full bg-accent-gold text-navy-950">
+                                <svg width="22" height="22" fill="none" stroke="currentColor"
+                                    stroke-width="2.4" viewBox="0 0 24 24">
+                                    <path d="m22 2-7 20-4-9-9-4Z"></path>
+                                    <path d="M22 2 11 13"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <form action="#" method="POST" class="space-y-6">
+                            @csrf
+
+                            <div>
+                                <label class="mb-2 block text-xs font-bold text-navy-900/55">Full Name <span
+                                        class="text-red-500">*</span></label>
+                                <input type="text" name="full_name"
+                                    class="field w-full rounded-xl border border-navy-900/10 px-5 py-4 text-sm"
+                                    required>
+                            </div>
+
+                            <div class="grid gap-5 md:grid-cols-2">
+                                <div>
+                                    <label class="mb-2 block text-xs font-bold text-navy-900/55">Company Name <span
+                                            class="text-red-500">*</span></label>
+                                    <input type="text" name="company_name"
+                                        class="field w-full rounded-xl border border-navy-900/10 px-5 py-4 text-sm"
+                                        required>
+                                </div>
+
+                                <div>
+                                    <label class="mb-2 block text-xs font-bold text-navy-900/55">Company Email <span
+                                            class="text-red-500">*</span></label>
+                                    <input type="email" name="company_email"
+                                        class="field w-full rounded-xl border border-navy-900/10 px-5 py-4 text-sm"
+                                        required>
+                                </div>
+                            </div>
+
+                            <div class="grid gap-5 md:grid-cols-2">
+                                <div>
+                                    <label class="mb-2 block text-xs font-bold text-navy-900/55">Phone Number <span
+                                            class="text-red-500">*</span></label>
+                                    <input type="text" name="phone"
+                                        class="field w-full rounded-xl border border-navy-900/10 px-5 py-4 text-sm"
+                                        required>
+                                </div>
+
+                                <div>
+                                    <label class="mb-2 block text-xs font-bold text-navy-900/55">Company Size <span
+                                            class="text-red-500">*</span></label>
+                                    <select name="company_size"
+                                        class="field w-full rounded-xl border border-navy-900/10 px-5 py-4 text-sm text-navy-900/70"
+                                        required>
+                                        <option value="">Select company size</option>
+                                        <option>1–10 employees</option>
+                                        <option>11–50 employees</option>
+                                        <option>51–200 employees</option>
+                                        <option>201–500 employees</option>
+                                        <option>500+ employees</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            {{-- <div>
+                                <label class="mb-3 block text-xs font-bold text-navy-900/55">
+                                    Interest <span class="text-red-500">*</span>
+                                    <span class="font-normal text-navy-900/35">(select all that apply)</span>
+                                </label>
+
+                                <div class="flex flex-wrap gap-3">
+                                    <label class="cursor-pointer">
+                                        <input type="checkbox" name="interest[]" value="IMS" class="peer hidden">
+                                        <span
+                                            class="inline-flex rounded-full border border-navy-900/10 px-4 py-2 text-sm font-bold peer-checked:bg-accent-gold peer-checked:text-navy-950">
+                                            IMS (Intelligent Monitoring System)
+                                        </span>
+                                    </label>
+
+                                    <label class="cursor-pointer">
+                                        <input type="checkbox" name="interest[]" value="Multi Biometric Readers"
+                                            class="peer hidden">
+                                        <span
+                                            class="inline-flex rounded-full border border-navy-900/10 px-4 py-2 text-sm font-bold peer-checked:bg-accent-gold peer-checked:text-navy-950">
+                                            Multi Biometric Readers
+                                        </span>
+                                    </label>
+
+                                    <label class="cursor-pointer">
+                                        <input type="checkbox" name="interest[]" value="Digital Signage"
+                                            class="peer hidden">
+                                        <span
+                                            class="inline-flex rounded-full border border-navy-900/10 px-4 py-2 text-sm font-bold peer-checked:bg-accent-gold peer-checked:text-navy-950">
+                                            Digital Signage
+                                        </span>
+                                    </label>
+
+                                    <label class="cursor-pointer">
+                                        <input type="checkbox" name="interest[]" value="API Integration"
+                                            class="peer hidden">
+                                        <span
+                                            class="inline-flex rounded-full border border-navy-900/10 px-4 py-2 text-sm font-bold peer-checked:bg-accent-gold peer-checked:text-navy-950">
+                                            API Integration
+                                        </span>
+                                    </label>
+
+                                    <label class="cursor-pointer">
+                                        <input type="checkbox" name="interest[]" value="Laptops"
+                                            class="peer hidden">
+                                        <span
+                                            class="inline-flex rounded-full border border-navy-900/10 px-4 py-2 text-sm font-bold peer-checked:bg-accent-gold peer-checked:text-navy-950">
+                                            Laptops
+                                        </span>
+                                    </label>
+
+                                    <label class="cursor-pointer">
+                                        <input type="checkbox" name="interest[]" value="Tablets"
+                                            class="peer hidden">
+                                        <span
+                                            class="inline-flex rounded-full border border-navy-900/10 px-4 py-2 text-sm font-bold peer-checked:bg-accent-gold peer-checked:text-navy-950">
+                                            Tablets
+                                        </span>
+                                    </label>
+
+                                    <label class="cursor-pointer">
+                                        <input type="checkbox" name="interest[]" value="POS Systems"
+                                            class="peer hidden">
+                                        <span
+                                            class="inline-flex rounded-full border border-navy-900/10 px-4 py-2 text-sm font-bold peer-checked:bg-accent-gold peer-checked:text-navy-950">
+                                            POS Systems
+                                        </span>
+                                    </label>
+                                </div>
+                            </div> --}}
+
+                            <div>
+                                <label class="mb-2 block text-xs font-bold text-navy-900/55">Message <span
+                                        class="font-normal text-navy-900/35">(optional)</span></label>
+                                <textarea name="message" rows="5"
+                                    class="field w-full resize-none rounded-xl border border-navy-900/10 px-5 py-4 text-sm"></textarea>
+                            </div>
+
+                            <button type="submit"
+                                class="flex w-full items-center justify-center gap-2 rounded-full bg-navy-900 px-6 py-5 font-extrabold text-white transition hover:bg-accent-gold hover:text-navy-950">
+                                Submit
+                                <span>→</span>
+                            </button>
+
+                            <p class="text-center text-xs text-navy-900/35">
+                                By submitting this form, you agree to our Privacy Policy.
+                            </p>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
     @include('layouts.footer')
 
     <script>
