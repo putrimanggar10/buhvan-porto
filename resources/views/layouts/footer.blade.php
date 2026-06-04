@@ -20,7 +20,7 @@
 </style>
 
 <!-- ============================ SECTION 9: FOOTER ============================ -->
-<footer class="bg-navy-950 text-white pt-20 pb-10 relative overflow-hidden">
+{{-- <footer class="bg-navy-950 text-white pt-20 pb-10 relative overflow-hidden">
     <div class="absolute inset-0 grid-overlay opacity-30"></div>
     <div
         class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[2px] bg-gradient-to-r from-transparent via-accent-gold to-transparent">
@@ -199,9 +199,9 @@
             </div>
         </div>
     </div>
-</footer>
+</footer> --}}
 
-@if(!request()->routeIs('contact-us'))
+@if (!request()->routeIs('contact-us'))
     @include('components.whatsapp-floating-component')
 @endif
 
@@ -246,7 +246,7 @@
     // Inisialisasi Google Translate
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
-            pageLanguage: 'en',  // Default bahasa Inggris
+            pageLanguage: 'en', // Default bahasa Inggris
             includedLanguages: 'en,id,es',
             layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false
@@ -328,4 +328,5 @@
 </script>
 
 <!-- Script Google Translate -->
-<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit">
+</script>
