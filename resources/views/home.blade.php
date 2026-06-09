@@ -187,15 +187,21 @@
     @include('layouts.navbar')
 
     <!-- ============================ HERO ============================ -->
-    <section id="home" class="consultant-hero relative isolate overflow-hidden px-4 pb-20 pt-28 text-white lg:px-8 lg:pt-36">
-        <div class="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-amber-400/15 to-transparent"></div>
+    <section id="home"
+        class="consultant-hero relative isolate overflow-hidden px-4 pb-20 pt-28 text-white lg:px-8 lg:pt-36">
+        <div
+            class="pointer-events-none absolute inset-x-0 top-0 h-80 bg-gradient-to-b from-amber-400/15 to-transparent">
+        </div>
 
-        <div class="nova-panel relative mx-auto min-h-[720px] max-w-[1180px] overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 lg:min-h-[860px] lg:rounded-[2.5rem] lg:px-16">
+        <div
+            class="nova-panel relative mx-auto min-h-[720px] max-w-[1180px] overflow-hidden rounded-[2rem] px-6 py-10 sm:px-10 lg:min-h-[860px] lg:rounded-[2.5rem] lg:px-16">
             <div class="relative z-30 mx-auto max-w-4xl pt-28 text-center lg:pt-36">
-                <div class="mx-auto inline-flex rounded-full border border-white/10 bg-white/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[.16em] text-white/70">
+                <div
+                    class="mx-auto inline-flex rounded-full border border-white/10 bg-white/10 px-4 py-2 text-[10px] font-bold uppercase tracking-[.16em] text-white/70">
                     Built for Digital Growth
                 </div>
-                <h1 class="mt-8 text-[clamp(3rem,6vw,5.7rem)] font-semibold leading-[1.02] tracking-[-.02em] text-white">
+                <h1
+                    class="mt-8 text-[clamp(3rem,6vw,5.7rem)] font-semibold leading-[1.02] tracking-[-.02em] text-white">
                     Solusi Website dan Aplikasi Web untuk bisnis modern.
                 </h1>
                 <p class="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/66">
@@ -214,7 +220,8 @@
                 </div>
             </div>
 
-            <div class="relative z-10 mx-auto mt-14 max-w-3xl overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-2xl shadow-amber-950/60 lg:mt-20">
+            <div
+                class="relative z-10 mx-auto mt-14 max-w-3xl overflow-hidden rounded-[1.5rem] border border-white/10 bg-black/45 shadow-2xl shadow-amber-950/60 lg:mt-20">
                 <img src="{{ asset('images/business-consultants-hero.png') }}" alt="IT solution strategy meeting"
                     class="consultant-photo h-[260px] w-full object-cover opacity-72 sm:h-[360px] lg:h-[420px]">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
@@ -234,7 +241,8 @@
                 </div>
             </div>
 
-            <div class="relative z-10 mt-16 flex flex-wrap items-center justify-center gap-8 text-xs font-semibold uppercase tracking-[.16em] text-white/35">
+            <div
+                class="relative z-10 mt-16 flex flex-wrap items-center justify-center gap-8 text-xs font-semibold uppercase tracking-[.16em] text-white/35">
                 <span>Website</span>
                 <span>Web App</span>
                 <span>UI/UX</span>
@@ -335,12 +343,12 @@
 
     <!-- ============================ SECTION 7: INDUSTRIES ============================ -->
 
-    <section id="services" class="bg-slate-950 py-32 overflow-hidden lg:py-40">
+    <section id="services" class="relative overflow-hidden bg-[#05050a] py-24 text-white lg:py-32">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
             <!-- Heading -->
             <div class="text-center max-w-4xl mx-auto mb-20 lg:mb-24">
-             
+
 
                 <h2 class="consultant-title mx-auto text-[clamp(3.2rem,6vw,6rem)] leading-[.9] text-white">
                     Solusi Digital Profesional
@@ -365,8 +373,8 @@
                     </div>
 
                     <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center mb-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-8 h-8 text-white">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -389,8 +397,8 @@
                     class="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-8 hover:border-[#f5c249]/50 hover:-translate-y-2 transition-all duration-500">
 
                     <div class="w-14 h-14 rounded-xl bg-[#f5c249]/10 flex items-center justify-center mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                            stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-[#f5c249]">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-7 h-7 text-[#f5c249]">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487z" />
                         </svg>
@@ -477,8 +485,7 @@
                 <div class="lg:col-span-5">
                     <div class="tag mb-5 text-amber-300">Contact Us</div>
 
-                    <h1
-                        class="text-[clamp(3rem,5vw,5.2rem)] font-semibold leading-[.98] tracking-[-.04em] text-white">
+                    <h1 class="text-[clamp(3rem,5vw,5.2rem)] font-semibold leading-[.98] tracking-[-.04em] text-white">
                         Wujudkan solusi<br>
                         <span class="text-amber-300">
                             digital Anda.
@@ -492,8 +499,7 @@
 
                     <div class="mt-14 space-y-7">
                         <div class="flex items-center gap-4">
-                            <div
-                                class="grid h-12 w-12 place-items-center rounded-2xl bg-white/10 text-amber-300">
+                            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-white/10 text-amber-300">
                                 <svg width="22" height="22" fill="none" stroke="currentColor"
                                     stroke-width="2" viewBox="0 0 24 24">
                                     <rect x="3" y="5" width="18" height="14" rx="2"></rect>
@@ -507,8 +513,7 @@
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <div
-                                class="grid h-12 w-12 place-items-center rounded-2xl bg-white/10 text-amber-300">
+                            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-white/10 text-amber-300">
                                 <svg width="22" height="22" fill="none" stroke="currentColor"
                                     stroke-width="2" viewBox="0 0 24 24">
                                     <path
@@ -551,7 +556,7 @@
                                 <p class="mt-1 text-white/50">Tim kami akan menghubungi Anda secepatnya.</p>
                             </div>
 
-                          
+
                         </div>
 
                         <form action="#" method="POST" class="space-y-6">
