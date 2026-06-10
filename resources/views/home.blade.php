@@ -4,13 +4,65 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bhuvan Solution | Website, Web Application & IT Solutions</title>
+
+    <title>Bhuvan Solution | Jasa Pembuatan Website, Web Application & IT Solutions Indonesia</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo-bhuvan.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/logo-bhuvan.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo-bhuvan.png') }}">
+
+    <meta name="description"
+        content="Bhuvan Solution menyediakan jasa pembuatan website, web application, company profile, landing page, sistem informasi, dan solusi IT profesional untuk bisnis di Indonesia.">
+
+    <meta name="keywords"
+        content="jasa pembuatan website, web application, software house, company profile website, website perusahaan, sistem informasi, web developer Indonesia, IT solutions, Bhuvan Solution">
+
+    <meta name="author" content="Bhuvan Solution">
+
+    <meta name="robots" content="index, follow">
+
+    <link rel="canonical" href="https://bhuvansolution.com">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Bhuvan Solution | Jasa Pembuatan Website & IT Solutions">
+    <meta property="og:description"
+        content="Solusi profesional untuk website, web application, company profile, sistem informasi, dan pengembangan software bisnis.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bhuvansolution.com">
+    <meta property="og:image" content="https://bhuvansolution.com/assets/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bhuvan Solution | Website & IT Solutions">
+    <meta name="twitter:description"
+        content="Jasa pembuatan website, web application, dan solusi IT profesional untuk bisnis Anda.">
+    <meta name="twitter:image" content="https://bhuvansolution.com/images/logo-bhuvan.png">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://www.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif&display=swap"
         rel="stylesheet">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FMDZ77JN3F"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-FMDZ77JN3F');
+    </script>
+    <!-- End Google Analytics -->
+
+
     <script>
         tailwind.config = {
             theme: {
@@ -373,8 +425,8 @@
                     </div>
 
                     <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur flex items-center justify-center mb-8">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-8 h-8 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-white">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -397,8 +449,8 @@
                     class="group rounded-3xl border border-white/10 bg-white/5 backdrop-blur p-8 hover:border-[#f5c249]/50 hover:-translate-y-2 transition-all duration-500">
 
                     <div class="w-14 h-14 rounded-xl bg-[#f5c249]/10 flex items-center justify-center mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-7 h-7 text-[#f5c249]">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke-width="1.5" stroke="currentColor" class="w-7 h-7 text-[#f5c249]">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897L16.862 4.487z" />
                         </svg>
