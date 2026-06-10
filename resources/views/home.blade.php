@@ -277,7 +277,7 @@
                 <img src="{{ asset('images/business-consultants-hero.png') }}" alt="IT solution strategy meeting"
                     class="consultant-photo h-[260px] w-full object-cover opacity-72 sm:h-[360px] lg:h-[420px]">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
-                <div class="absolute bottom-5 left-5 right-5 grid gap-3 sm:grid-cols-3">
+                <div class="relative z-10 grid gap-3 p-4 sm:absolute sm:bottom-5 sm:left-5 sm:right-5 sm:grid-cols-3 sm:p-0">
                     <div class="rounded-2xl bg-white/10 p-4 backdrop-blur-md">
                         <div class="text-3xl font-semibold">Web</div>
                         <div class="mt-1 text-xs text-white/60">Website modern</div>
