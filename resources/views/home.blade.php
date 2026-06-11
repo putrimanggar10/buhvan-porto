@@ -4,8 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="CMLC0aN-uymjb8Sk4qIpfIkJ3XPrz4GumLNuY9XHVZM" />
 
-    <title>Bhuvan Solution | Jasa Pembuatan Website, Web Application & IT Solutions Indonesia</title>
+    <title>Jasa Pembuatan Website, Web Application & IT Solutions Terbaik di Indonesia | Bhuvan Solution</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo-bhuvan.png') }}">
@@ -22,7 +23,7 @@
 
     <meta name="robots" content="index, follow">
 
-    <link rel="canonical" href="https://bhuvansolution.com">
+    <link rel="canonical" href="https://bhuvansolution.com/">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Bhuvan Solution | Jasa Pembuatan Website & IT Solutions">
@@ -30,7 +31,7 @@
         content="Solusi profesional untuk website, web application, company profile, sistem informasi, dan pengembangan software bisnis.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://bhuvansolution.com">
-    <meta property="og:image" content="https://bhuvansolution.com/assets/og-image.jpg">
+    <meta property="og:image" content="{{ asset('images/logo-bhuvan.png') }}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -61,6 +62,7 @@
         gtag('config', 'G-FMDZ77JN3F');
     </script>
     <!-- End Google Analytics -->
+
 
 
     <script>
@@ -277,7 +279,8 @@
                 <img src="{{ asset('images/business-consultants-hero.png') }}" alt="IT solution strategy meeting"
                     class="consultant-photo h-[260px] w-full object-cover opacity-72 sm:h-[360px] lg:h-[420px]">
                 <div class="absolute inset-0 bg-gradient-to-t from-black via-black/25 to-transparent"></div>
-                <div class="relative z-10 grid gap-3 p-4 sm:absolute sm:bottom-5 sm:left-5 sm:right-5 sm:grid-cols-3 sm:p-0">
+                <div
+                    class="relative z-10 grid gap-3 p-4 sm:absolute sm:bottom-5 sm:left-5 sm:right-5 sm:grid-cols-3 sm:p-0">
                     <div class="rounded-2xl bg-white/10 p-4 backdrop-blur-md">
                         <div class="text-3xl font-semibold">Web</div>
                         <div class="mt-1 text-xs text-white/60">Website modern</div>
