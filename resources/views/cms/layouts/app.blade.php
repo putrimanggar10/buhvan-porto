@@ -15,11 +15,11 @@
 </head>
 <!-- END: Head -->
 
-<body>
+<body class="theme-1">
     <!-- BEGIN: Notification Content -->
     @include('cms.layouts.notification')
     <!-- END: Notification Content -->
-    <div class="theme-1 min-h-screen py-5 md:py-5 md:pr-5">
+    <div class="min-h-screen py-5 md:py-5 md:pr-5">
         <!-- BEGIN: Mobile Menu -->
         @include('cms.layouts.menumobile')
         <!-- END: Mobile Menu -->
