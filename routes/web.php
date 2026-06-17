@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ExampleController;
 
 Route::get('/', [HomeController::class, 'index']);
 
@@ -17,6 +18,7 @@ Route::prefix('dashboard')->group(function () {
         'users'        => UserController::class,
         'category'     => CategoryController::class,
         'projects'     => ProjectController::class,
+        'example'     => ExampleController::class,
         // 'gallery'      => GalleryController::class,
         // 'banner'       => BannerController::class,
         // 'document'     => DokumentController::class,
