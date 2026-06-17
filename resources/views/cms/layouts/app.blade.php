@@ -302,7 +302,7 @@ body.view-add-active .fab{display:none!important}
       @yield('content')
     
     </div>
-    <footer class="app-footer">2026 © HIT Corporation.</footer>
+    <footer class="app-footer">2026 © Bhuvan Solution.</footer>
   </div>
 </div>
 
