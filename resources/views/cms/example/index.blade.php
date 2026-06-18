@@ -63,7 +63,7 @@
               <div class="detail-line"><span class="k">Status Persetujuan</span><span class="v"><span class="badge-status pending"><i class="bi bi-hourglass-split"></i> Menunggu</span></span></div>
               <div class="detail-line"><span class="k">Tanggal Dibuat</span><span class="v">2026-06-03</span></div>
               <div class="detail-line"><span class="k">Tanggal Disetujui</span><span class="v">- belum disetujui</span></div>
-              <div class="detail-actions"><button class="btn-edit"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(0)"><i class="bi bi-trash3"></i> Hapus</button></div>
+              <div class="detail-actions"><button class="btn-edit" onclick="askEdit(0)"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(0)"><i class="bi bi-trash3"></i> Hapus</button></div>
             </div></div></td></tr>
 
             <tr class="row-main status-row" data-type="AT" data-status="wfh at" data-from="2026-04-29" data-to="2026-04-29">
@@ -78,7 +78,7 @@
               <div class="detail-line"><span class="k">Status Persetujuan</span><span class="v"><span class="badge-status approved"><i class="bi bi-check-circle-fill"></i> Disetujui</span></span></div>
               <div class="detail-line"><span class="k">Tanggal Dibuat</span><span class="v">2026-05-12</span></div>
               <div class="detail-line"><span class="k">Tanggal Disetujui</span><span class="v">2026-05-20</span></div>
-              <div class="detail-actions"><button class="btn-edit"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(1)"><i class="bi bi-trash3"></i> Hapus</button></div>
+              <div class="detail-actions"><button class="btn-edit" onclick="askEdit(1)"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(1)"><i class="bi bi-trash3"></i> Hapus</button></div>
             </div></div></td></tr>
 
             <tr class="row-main status-row" data-type="AB" data-status="annual leave (personal leave) ab" data-from="2026-04-27" data-to="2026-04-27">
@@ -93,7 +93,7 @@
               <div class="detail-line"><span class="k">Status Persetujuan</span><span class="v"><span class="badge-status rejected"><i class="bi bi-x-circle-fill"></i> Ditolak</span></span></div>
               <div class="detail-line"><span class="k">Tanggal Dibuat</span><span class="v">2026-04-20</span></div>
               <div class="detail-line"><span class="k">Tanggal Disetujui</span><span class="v">- belum disetujui</span></div>
-              <div class="detail-actions"><button class="btn-edit"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(2)"><i class="bi bi-trash3"></i> Hapus</button></div>
+              <div class="detail-actions"><button class="btn-edit" onclick="askEdit(2)"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(2)"><i class="bi bi-trash3"></i> Hapus</button></div>
             </div></div></td></tr>
 
             <tr class="row-main status-row" data-type="AT" data-status="lateness with approval at" data-from="2026-04-17" data-to="2026-04-17">
@@ -108,7 +108,7 @@
               <div class="detail-line"><span class="k">Status Persetujuan</span><span class="v"><span class="badge-status approved"><i class="bi bi-check-circle-fill"></i> Disetujui</span></span></div>
               <div class="detail-line"><span class="k">Tanggal Dibuat</span><span class="v">2026-04-17</span></div>
               <div class="detail-line"><span class="k">Tanggal Disetujui</span><span class="v">2026-04-18</span></div>
-              <div class="detail-actions"><button class="btn-edit"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(3)"><i class="bi bi-trash3"></i> Hapus</button></div>
+              <div class="detail-actions"><button class="btn-edit" onclick="askEdit(3)"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(3)"><i class="bi bi-trash3"></i> Hapus</button></div>
             </div></div></td></tr>
 
             <tr class="row-main status-row" data-type="AT" data-status="lateness with approval at" data-from="2026-04-02" data-to="2026-04-02">
@@ -123,7 +123,7 @@
               <div class="detail-line"><span class="k">Status Persetujuan</span><span class="v"><span class="badge-status approved"><i class="bi bi-check-circle-fill"></i> Disetujui</span></span></div>
               <div class="detail-line"><span class="k">Tanggal Dibuat</span><span class="v">2026-04-02</span></div>
               <div class="detail-line"><span class="k">Tanggal Disetujui</span><span class="v">2026-04-03</span></div>
-              <div class="detail-actions"><button class="btn-edit"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(4)"><i class="bi bi-trash3"></i> Hapus</button></div>
+              <div class="detail-actions"><button class="btn-edit" onclick="askEdit(4)"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(4)"><i class="bi bi-trash3"></i> Hapus</button></div>
             </div></div></td></tr>
 
             <tr class="row-main status-row" data-type="AT" data-status="lateness with approval at" data-from="2026-03-13" data-to="2026-03-13">
@@ -138,7 +138,7 @@
               <div class="detail-line"><span class="k">Status Persetujuan</span><span class="v"><span class="badge-status pending"><i class="bi bi-hourglass-split"></i> Menunggu</span></span></div>
               <div class="detail-line"><span class="k">Tanggal Dibuat</span><span class="v">2026-03-13</span></div>
               <div class="detail-line"><span class="k">Tanggal Disetujui</span><span class="v">- belum disetujui</span></div>
-              <div class="detail-actions"><button class="btn-edit"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(5)"><i class="bi bi-trash3"></i> Hapus</button></div>
+              <div class="detail-actions"><button class="btn-edit" onclick="askEdit(5)"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(5)"><i class="bi bi-trash3"></i> Hapus</button></div>
             </div></div></td></tr>
             <tr id="emptyRow" style="display:none"><td colspan="5"><div class="empty-state"><i class="bi bi-inbox"></i>Status tidak ditemukan.</div></td></tr>
           </tbody>
@@ -223,15 +223,60 @@
     <div class="d-flex gap-2 justify-content-center"><button class="btn-ghost" data-bs-dismiss="modal">Batal</button><button class="btn-del" id="confirmDelete"><i class="bi bi-trash3"></i> Ya, hapus</button></div>
   </div></div></div>
 
+  <div class="modal fade" id="editModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-4">
+        <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+          <div>
+            <h5 class="display-font fw-bold mb-1" style="color:var(--ink)">Edit status</h5>
+            <p class="mb-0" style="color:var(--ink-soft)">Ubah data pengajuan dummy dari baris yang dipilih.</p>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+        </div>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="lbl mb-1 d-block">Tipe</label>
+            <select class="form-select" id="editType">
+              <option>AT</option>
+              <option>AB</option>
+            </select>
+          </div>
+          <div class="col-md-8">
+            <label class="lbl mb-1 d-block">Status</label>
+            <input type="text" class="form-control" id="editStatus">
+          </div>
+          <div class="col-md-6">
+            <label class="lbl mb-1 d-block">Dari</label>
+            <input type="date" class="form-control" id="editFrom">
+          </div>
+          <div class="col-md-6">
+            <label class="lbl mb-1 d-block">Sampai</label>
+            <input type="date" class="form-control" id="editTo">
+          </div>
+          <div class="col-12">
+            <label class="lbl mb-1 d-block">Catatan</label>
+            <input type="text" class="form-control" id="editNote">
+          </div>
+        </div>
+        <div class="d-flex justify-content-end gap-2 mt-4">
+          <button class="btn-ghost" data-bs-dismiss="modal">Batal</button>
+          <button class="btn-submit" id="saveEdit">Simpan</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <button class="fab" onclick="showView('add')" title="Tambah Status"><i class="bi bi-plus-lg"></i></button>
   <div class="toast-stack" id="toastStack"></div>
 @endsection
 
 @push('scripts')
   <script>
-    let currentFilter='all', currentType='AT', pendingDelete=null;
+    let currentFilter='all', currentType='AT', pendingDelete=null, pendingEdit=null;
     const deleteModalEl=document.getElementById('deleteModal');
     const deleteModal=deleteModalEl ? new bootstrap.Modal(deleteModalEl) : null;
+    const editModalEl=document.getElementById('editModal');
+    const editModal=editModalEl ? new bootstrap.Modal(editModalEl) : null;
 
     function statusRows(){return Array.from(document.querySelectorAll('.status-row'));}
     function detailRow(row){return row.nextElementSibling;}
@@ -317,6 +362,18 @@
       }
     }
     function askDelete(index){pendingDelete=index;if(deleteModal)deleteModal.show();}
+    function askEdit(index){
+      const row=document.getElementById('tg-'+index)?.closest('.status-row');
+      if(!row)return;
+      const detail=detailRow(row);
+      pendingEdit=index;
+      document.getElementById('editType').value=row.dataset.type;
+      document.getElementById('editStatus').value=row.children[2].textContent.trim();
+      document.getElementById('editFrom').value=row.dataset.from;
+      document.getElementById('editTo').value=row.dataset.to;
+      document.getElementById('editNote').value=detail.querySelector('.detail-line .v').textContent.trim();
+      if(editModal)editModal.show();
+    }
     function setType(type,element){
       currentType=type;
       document.querySelectorAll('#typeSeg button').forEach(button=>button.classList.remove('on'));
@@ -370,6 +427,33 @@
         pendingDelete=null;
         if(deleteModal)deleteModal.hide();
         toast('Status dihapus','Pengajuan berhasil dihapus.','danger');
+      });
+    }
+    const saveEdit=document.getElementById('saveEdit');
+    if(saveEdit){
+      saveEdit.addEventListener('click',()=>{
+        const row=document.getElementById('tg-'+pendingEdit)?.closest('.status-row');
+        if(!row)return;
+        const type=document.getElementById('editType').value;
+        const status=document.getElementById('editStatus').value.trim();
+        const from=document.getElementById('editFrom').value;
+        const to=document.getElementById('editTo').value;
+        const note=document.getElementById('editNote').value.trim() || '-';
+        const typeInfo=type==='AT' ? 'Status Kehadiran' : 'Status Ketidakhadiran';
+
+        row.dataset.type=type;
+        row.dataset.status=(status+' '+type).toLowerCase();
+        row.dataset.from=from;
+        row.dataset.to=to;
+        row.children[1].innerHTML=`<span class="type-tag ${type.toLowerCase()}" title="${typeInfo}">${type}</span>`;
+        row.children[2].textContent=status;
+        row.children[3].textContent=from;
+        row.children[4].textContent=to;
+        detailRow(row).querySelector('.detail-line .v').textContent=note;
+
+        renderTable();
+        if(editModal)editModal.hide();
+        toast('Status diperbarui','Perubahan dummy berhasil diterapkan.');
       });
     }
 
