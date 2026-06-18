@@ -1,192 +1,280 @@
 @extends('cms.layouts.app')
-@section('container')
-    <h2 class="intro-y text-lg font-medium mt-8 xl:mt-24">
-        Project Management
-    </h2>
-    <div class="grid grid-cols-12 gap-6 mt-5">
-        <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <a href="/dashboard/projects/create" class="btn btn-primary shadow-md mr-2">Add New Project</a>
-            <div class="hidden md:block mx-auto text-slate-500"> Showing {{ $project->firstItem() }} to
-                {{ $project->lastItem() }} of {{ $project->total() }} entries</div>
-            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-                <div class="w-56 relative text-slate-500">
-                    <form action="{{ url()->current() }}" method="get">
-                        <input type="text" name="search" id="search" class="form-control w-56 box pr-10"
-                            placeholder="Search..." value="{{ old('search', request('search')) }}">
-                        <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
+
+@section('content')
+  
+
+    <section class="view is-active" id="view-list">
+        <div class="page-head">
+            <div>
+                <h1>Project Management</h1>
+            </div>
+            <div class="breadcrumb-mini">Dashboard <span class="sep">/</span>Project Management</div>
+        </div>
+
+        <div class="action-row">
+            <div class="filter-bar" id="filterBar">
+                <button class="fpill active" type="button" data-filter="all">
+                    Semua <span class="cnt">{{ $project->total() }}</span>
+                </button>
+                <button class="fpill at" type="button" data-filter="active">
+                    Active
+                </button>
+                <button class="fpill ab" type="button" data-filter="inactive">
+                    Inactive
+                </button>
+            </div>
+            <a href="/dashboard/projects/create" class="btn-add">
+                <i class="bi bi-plus-lg"></i> Tambah Project
+            </a>
+        </div>
+
+        <div class="card-surface">
+            <div class="table-toolbar">
+                <div class="tt-left">
+                    <div class="entries">Tampilkan
+                        <select id="entriesSel" onchange="renderProjectTable()">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>50</option>
+                        </select>
+                    </div>
+                </div>
+                <form action="{{ url()->current() }}" method="get" class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" name="search" id="searchInput" placeholder="Cari project..."
+                        value="{{ old('search', request('search')) }}" oninput="renderProjectTable()">
+                </form>
+            </div>
+
+            <div class="table-responsive">
+                <table class="wt-table">
+                    <thead>
+                        <tr>
+                            <th>No <i class="bi bi-arrow-down-up sort"></i></th>
+                            <th>Project <i class="bi bi-arrow-down-up sort"></i></th>
+                            <th>Images</th>
+                            <th>Thumbnail</th>
+                            <th>Slug</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        @forelse ($project as $index => $item)
+                            @php
+                                $images = json_decode($item->gambar ?? '[]', true) ?: [];
+                                $techs = json_decode($item->tech ?? '[]', true) ?: [];
+                                $statusClass = strtolower($item->status) === 'active' ? 'approved' : 'rejected';
+                            @endphp
+                            <tr class="row-main project-row"
+                                data-search="{{ strtolower($item->title . ' ' . ($item->category->name ?? '') . ' ' . $item->slug . ' ' . $item->status) }}"
+                                data-status="{{ strtolower($item->status) }}">
+                                <td>
+                                    <div class="no-cell">
+                                        <button class="toggle" id="tg-{{ $index }}" type="button"
+                                            onclick="toggleProjectDetail({{ $index }})">
+                                            <i class="bi bi-plus"></i>
+                                        </button>
+                                        <span class="row-number">{{ $project->firstItem() + $index }}</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="/dashboard/projects/{{ $item->id }}/edit" class="project-title">
+                                        {{ $item->title }}
+                                    </a>
+                                    <div class="project-meta">{{ $item->category->name ?? 'Tanpa kategori' }}</div>
+                                </td>
+                                <td>
+                                    <div class="project-stack">
+                                        @forelse ($images as $gambar)
+                                            <img src="{{ asset('/assets/images/project/' . $gambar) }}"
+                                                alt="{{ $item->title }}">
+                                        @empty
+                                            <span class="project-meta">Belum ada</span>
+                                        @endforelse
+                                    </div>
+                                </td>
+                                <td>
+                                    @if ($item->thumbnail)
+                                        <img src="{{ asset('/assets/images/project/' . $item->thumbnail) }}"
+                                            alt="{{ $item->title }}" class="project-cover">
+                                    @else
+                                        <span class="project-meta">Belum ada</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <a class="project-link" href="/projects/{{ $item->slug }}" target="_blank">
+                                        <i class="bi bi-box-arrow-up-right"></i>
+                                        /project/{{ $item->slug }}
+                                    </a>
+                                </td>
+                                <td>
+                                    <span class="badge-status {{ $statusClass }}">
+                                        <i
+                                            class="bi {{ $statusClass === 'approved' ? 'bi-check-circle' : 'bi-x-circle' }}"></i>
+                                        {{ $item->status }}
+                                    </span>
+                                </td>
+                            </tr>
+
+                            <tr class="detail-row project-detail-row" id="detail-row-{{ $index }}">
+                                <td colspan="6">
+                                    <div class="detail-wrap" id="dw-{{ $index }}">
+                                        <div class="detail-inner">
+                                            <div class="detail-line">
+                                                <div class="k">Tahun</div>
+                                                <div class="v">{{ $item->year ?? '-' }}</div>
+                                            </div>
+                                            <div class="detail-line">
+                                                <div class="k">Tech Stack</div>
+                                                <div class="v">{{ count($techs) ? implode(', ', $techs) : '-' }}</div>
+                                            </div>
+                                            <div class="detail-line">
+                                                <div class="k">Update Terakhir</div>
+                                                <div class="v">{{ $item->updated_at?->format('d F Y') ?? '-' }}</div>
+                                            </div>
+                                            <div class="detail-actions">
+                                                <a class="btn-edit" href="/dashboard/projects/{{ $item->id }}/edit">
+                                                    <i class="bi bi-pencil-square"></i>
+                                                    Edit
+                                                </a>
+                                                <button class="btn-del" type="button" data-bs-toggle="modal"
+                                                    data-bs-target="#deleteModal-{{ $item->id }}">
+                                                    <i class="bi bi-trash3"></i>
+                                                    Hapus
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr id="emptyRow">
+                                <td colspan="6">
+                                    <div class="empty-state">
+                                        <i class="bi bi-inbox"></i>
+                                        Project tidak ditemukan.
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-foot">
+                <div class="info" id="entriesInfo">
+                    Showing {{ $project->firstItem() ?? 0 }} to {{ $project->lastItem() ?? 0 }} of
+                    {{ $project->total() }} entries
+                </div>
+                <div class="pager">
+                    @if ($project->onFirstPage())
+                        <span class="is-disabled"><i class="bi bi-chevron-left"></i></span>
+                    @else
+                        <a href="{{ $project->previousPageUrl() }}"><i class="bi bi-chevron-left"></i></a>
+                    @endif
+
+                    @for ($i = 1; $i <= $project->lastPage(); $i++)
+                        <a class="{{ $i == $project->currentPage() ? 'is-active' : '' }}"
+                            href="{{ $project->url($i) }}">{{ $i }}</a>
+                    @endfor
+
+                    @if ($project->hasMorePages())
+                        <a href="{{ $project->nextPageUrl() }}"><i class="bi bi-chevron-right"></i></a>
+                    @else
+                        <span class="is-disabled"><i class="bi bi-chevron-right"></i></span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </section>
+
+    @foreach ($project as $item)
+        <div class="modal fade" id="deleteModal-{{ $item->id }}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4">
+                    <div class="modal-icon"><i class="bi bi-trash3"></i></div>
+                    <h5 class="display-font fw-bold mb-1" style="color:var(--ink)">Hapus ini?</h5>
+                    <p class="mb-4" style="color:var(--ink-soft)">Project akan dihapus permanen.</p>
+                    <form action="{{ route('cms.projects.destroy', $item->id) }}" method="post">
+                        @method('DELETE')
+                        @csrf
+                        <div class="d-flex gap-2 justify-content-center">
+                            <button type="button" class="btn-ghost" data-bs-dismiss="modal">
+                                Batal
+                            </button>
+                            <button type="submit" class="btn-del">
+                                <i class="bi bi-trash3"></i>
+                                Ya, hapus
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
-        <!-- BEGIN: Data List -->
-        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-            <table class="table table-report -mt-2">
-                <thead>
-                    <tr>
-                        <th class="whitespace-nowrap">TITLE</th>
-                        <th class="whitespace-nowrap">IMAGES</th>
-                        <th class="whitespace-nowrap">THUMBNAIL</th>
-                        <th class=" whitespace-nowrap">SLUG</th>
-                        <th class="text-center whitespace-nowrap">STATUS</th>
-                        <th class="text-center whitespace-nowrap">ACTIONS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($project as $item)
-                        <tr class="intro-x">
-                            <td>
-                                <a href="" class="font-medium whitespace-nowrap">{{ $item->title }}</a>
-                                <div class="text-slate-500 text-xs whitespace-nowrap mt-0.5">{{ $item->category->name }}
-                                </div>
-                            </td>
-                            <td class="w-40">
-                                <div class="flex">
-                                    @foreach (json_decode($item->gambar) as $gambar)
-                                        <div
-                                            class="w-10 h-10 image-fit zoom-in @if (!$loop->first) -ml-5 @endif">
-                                            <img alt="{{ $item->title }}" data-action="zoom"
-                                                class="w-full tooltip rounded-full"
-                                                src="{{ asset('/assets/images/project/' . $gambar) }}"
-                                                title="Uploaded at {{ $item->updated_at->format('d F Y') }}">
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </td>
-                            <td class="w-40">
-                                <div class="flex">
-                                    <div class="w-10 h-10 image-fit zoom-in ">
-                                        <img alt="{{ $item->title }}" data-action="zoom"
-                                            class="w-full tooltip rounded-full"
-                                            src="{{ asset('/assets/images/projects/' . $item->thumbnail) }}"
-                                            title="Uploaded at {{ $item->updated_at->format('d F Y') }}">
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="">
-                                <a class="text-slate-500 flex items-center mr-3" href="/projects/{{ $item->slug }}"
-                                    target="_blank"> <i data-lucide="external-link"
-                                        class="w-4 h-4 mr-2"></i>/project/{{ $item->slug }}</a>
-                            </td>
-                            <td class="w-40">
-                                <div
-                                    class="flex items-center justify-center 
-                                    {{ $item->status == 'Active' ? 'text-success' : 'text-danger' }}">
-                                    <i data-lucide="check-square" class="w-4 h-4 mr-2"></i>
-                                    {{ $item->status }}
-                                </div>
-                            </td>
-                            <td class="table-report__action w-56">
-                                <div class="flex justify-center items-center">
-                                    <a class="flex items-center mr-3" href="/dashboard/projects/{{ $item->id }}/edit">
-                                        <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit </a>
-                                    <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal"
-                                        data-tw-target="#delete-confirmation-modal{{ $item->id }}"> <i
-                                            data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="7" class="text-center text-gray-500">No data available</td>
-                        </tr>
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
-        <!-- END: Data List -->
-        <!-- BEGIN: Pagination -->
-        <div class="intro-y col-span-12 flex justify-center items-center">
-            <nav class="w-full sm:w-auto"> <!-- Menambahkan flex dan justify-center -->
-                <ul class="pagination">
-                    @if ($project->onFirstPage())
-                        <li class="page-item disabled">
-                            <a class="page-link">
-                                <i class="w-4 h-4" data-lucide="chevrons-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item disabled">
-                            <a class="page-link">
-                                <i class="w-4 h-4" data-lucide="chevron-left"></i>
-                            </a>
-                        </li>
-                    @else
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $project->url(1) }}">
-                                <i class="w-4 h-4" data-lucide="chevrons-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $project->url($project->currentPage() - 1) }}">
-                                <i class="w-4 h-4" data-lucide="chevron-left"></i>
-                            </a>
-                        </li>
-                    @endif
-
-                    <li class="page-item disabled"> <a class="page-link">...</a> </li>
-                    @for ($i = 1; $i <= $project->lastPage(); $i++)
-                        <li class="page-item {{ $i == $project->currentPage() ? 'active' : '' }}">
-                            <a class="page-link" href="{{ $project->url($i) }}">{{ $i }}</a>
-                        </li>
-                    @endfor
-                    <li class="page-item disabled"> <a class="page-link">...</a> </li>
-
-                    @if ($project->hasMorePages())
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $project->url($project->currentPage() + 1) }}">
-                                <i class="w-4 h-4" data-lucide="chevron-right"></i>
-                            </a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="{{ $project->url($project->lastPage()) }}">
-                                <i class="w-4 h-4" data-lucide="chevrons-right"></i>
-                            </a>
-                        </li>
-                    @else
-                        <li class="page-item">
-                            <a class="page-link">
-                                <i class="w-4 h-4" data-lucide="chevron-right"></i>
-                            </a>
-                        </li>
-                        <li class="page-item disabled">
-                            <a class="page-link">
-                                <i class="w-4 h-4" data-lucide="chevrons-right"></i>
-                            </a>
-                        </li>
-                    @endif
-                </ul>
-            </nav>
-        </div>
-        <!-- END: Pagination -->
-
-    </div>
-    <!-- BEGIN: Delete Confirmation Modal -->
-    @foreach ($project as $item)
-        <div id="delete-confirmation-modal{{ $item->id }}" class="modal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body p-0">
-                        <div class="p-5 text-center">
-                            <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                            <div class="text-3xl mt-5">Are you sure?</div>
-                            <div class="text-slate-500 mt-2">
-                                Do you really want to delete these records?
-                                <br>
-                                This process cannot be undone.
-                            </div>
-                        </div>
-                        <form action="/dashboard/project/{{ $item->id }}" method="post">
-                            @method('DELETE')
-                            @csrf
-                            <div class="px-5 pb-8 text-center">
-                                <button type="button" data-tw-dismiss="modal"
-                                    class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                                <button type="submit" class="btn btn-danger w-24">Delete</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     @endforeach
-    <!-- END: Delete Confirmation Modal -->
+
+    <a class="fab" href="/dashboard/projects/create" title="Tambah Project">
+        <i class="bi bi-plus-lg"></i>
+    </a>
 @endsection
+
+@push('scripts')
+    <script>
+        function toggleProjectDetail(index) {
+            const wrap = document.getElementById('dw-' + index);
+            const button = document.getElementById('tg-' + index);
+            const open = wrap.style.maxHeight && wrap.style.maxHeight !== '0px';
+
+            if (open) {
+                wrap.style.maxHeight = '0px';
+                button.classList.remove('is-open');
+                button.innerHTML = '<i class="bi bi-plus"></i>';
+            } else {
+                wrap.style.maxHeight = wrap.scrollHeight + 'px';
+                button.classList.add('is-open');
+                button.innerHTML = '<i class="bi bi-dash"></i>';
+            }
+        }
+
+        let currentProjectStatus = 'all';
+
+        function renderProjectTable() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const limit = parseInt(document.getElementById('entriesSel').value, 10);
+            const rows = Array.from(document.querySelectorAll('.project-row'));
+            let visible = 0;
+
+            rows.forEach((row) => {
+                const detail = row.nextElementSibling;
+                const matchSearch = row.dataset.search.includes(query);
+                const matchStatus = currentProjectStatus === 'all' || row.dataset.status === currentProjectStatus;
+                const show = matchSearch && matchStatus && visible < limit;
+
+                row.style.display = show ? '' : 'none';
+                detail.style.display = show ? '' : 'none';
+
+                if (show) {
+                    visible++;
+                }
+            });
+
+            const info = document.getElementById('entriesInfo');
+            if (info) {
+                info.textContent = `Menampilkan ${visible} project pada halaman ini`;
+            }
+        }
+
+        document.querySelectorAll('#filterBar .fpill').forEach((button) => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('#filterBar .fpill').forEach((item) => item.classList.remove(
+                    'active'));
+                button.classList.add('active');
+
+                currentProjectStatus = button.dataset.filter;
+                renderProjectTable();
+            });
+        });
+
+        renderProjectTable();
+    </script>
+@endpush

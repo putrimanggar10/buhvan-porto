@@ -27,8 +27,11 @@
               <a href="#"><i class="bi bi-person-check"></i> Lorem Ipsum</a>
               <a href="#"><i class="bi bi-phone"></i> Lorem Ipsum </a>
           </div>
-          <button class="nav-side__item" data-label="Ubah Kata Sandi"><i class="bi bi-key lead-ic"></i><span
-                  class="nav-label">Lorem Ipsum</span></button>
+          <a href="/dashboard/projects" class="nav-side__item {{ Request::is('dashboard/projects*') ? 'is-active' : '' }}"
+              data-label="Project">
+              <i class="bi bi-folder lead-ic"></i>
+              <span class="nav-label">Project</span>
+          </a>
           <button class="nav-side__item" data-label="Keluar"><i class="bi bi-box-arrow-right lead-ic"></i><span
                   class="nav-label">Keluar</span></button>
       </nav>
