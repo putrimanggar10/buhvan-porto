@@ -1,34 +1,24 @@
-@foreach ($users as $user)
-    <div class="modal fade" id="editModal-{{ $user->id }}" tabindex="-1">
+    <div class="modal fade" id="createUserModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content p-4">
                 <div class="d-flex align-items-start justify-content-between gap-3 mb-4">
                     <div>
-                        <h5 class="display-font fw-bold mb-1" style="color:var(--ink)">Edit User</h5>
+                        <h5 class="display-font fw-bold mb-1" style="color:var(--ink)">Tambah User</h5>
                     </div>
 
                 </div>
 
-                <form action="{{ route('cms.users.update', $user->id) }}" method="POST">
+                <form action="{{ route('cms.users.store') }}" method="POST">
                     @csrf
-                    @method('PUT')
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="lbl mb-1 d-block">Nama</label>
-                            <input type="text" name="name" class="form-control" placeholder="Masukkan nama user"
-                                value="{{ old('name', $user->name) }}">
-                            @error('name')
-                                <div class="invalid-text d-block">{{ $message }}</div>
-                            @enderror
+                            <input type="text" name="name" class="form-control" placeholder="Masukkan nama user">
                         </div>
 
                         <div class="col-md-6">
                             <label class="lbl mb-1 d-block">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Masukkan email user"
-                                value="{{ old('email', $user->email) }}">
-                            @error('email')
-                                <div class="invalid-text d-block">{{ $message }}</div>
-                            @enderror
+                            <input type="email" name="email" class="form-control" placeholder="Masukkan email user">
                         </div>
 
                         <div class="col-md-6">
@@ -50,4 +40,3 @@
             </div>
         </div>
     </div>
-@endforeach

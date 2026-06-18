@@ -12,7 +12,7 @@ Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/dashboard/project/checkslug', [ProjectController::class, 'checkslug']);
 
-Route::prefix('dashboard')->group(function () {
+Route::prefix('dashboard')->name('cms.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resources([
         'users'        => UserController::class,
