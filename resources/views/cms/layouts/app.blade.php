@@ -312,90 +312,8 @@ body.view-add-active .fab{display:none!important}
   </div>
 </div>
 
-<!-- FAB (tablet & mobile) -->
-<button class="fab" onclick="showView('add')" title="Tambah Status"><i class="bi bi-plus-lg"></i></button>
-
-<!-- modal hapus -->
-
-
-<div class="toast-stack" id="toastStack"></div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const OPTIONS={
-  AT:["Lateness with Approval","Personal Leave (0,5 day)","Support Customer","Meeting with Customer","Early Departure with Approval","WFH","DIKLAT","DINAS LUAR KOTA","Paid Leave"],
-  AB:["Sick","Unpaid Leave","Marriage Leave","Maternity Leave","CUTI KHUSUS","Annual Leave (Personal Leave)"]
-};
-const LABEL={Pending:'Menunggu',Approved:'Disetujui',Rejected:'Ditolak'};
-const TYPEINFO={AT:'Status Kehadiran',AB:'Status Ketidakhadiran'};
-let DATA=[
-  {type:"AB",status:"Annual Leave (Personal Leave)",from:"2026-05-29",to:"2026-05-29",note:"Cuti 1 hari, sudah mengajukan form cuti dan disetujui oleh Lead & HR",approval:"Pending",created:"2026-06-03",approved:""},
-  {type:"AT",status:"WFH",from:"2026-04-29",to:"2026-04-29",note:"Izin WFH karena mengalami musibah, sudah berkomunikasi dengan lead dan diizinkan, sudah dibantu konfirmasi kepada HR.",approval:"Approved",created:"2026-05-12",approved:"2026-05-20"},
-  {type:"AB",status:"Annual Leave (Personal Leave)",from:"2026-04-27",to:"2026-04-27",note:"Cuti tahunan keperluan keluarga.",approval:"Rejected",created:"2026-04-20",approved:""},
-  {type:"AT",status:"Lateness with Approval",from:"2026-04-17",to:"2026-04-17",note:"Terlambat karena macet, sudah info ke lead.",approval:"Approved",created:"2026-04-17",approved:"2026-04-18"},
-  {type:"AT",status:"Lateness with Approval",from:"2026-04-02",to:"2026-04-02",note:"Antar keluarga ke RS terlebih dahulu.",approval:"Approved",created:"2026-04-02",approved:"2026-04-03"},
-  {type:"AT",status:"Lateness with Approval",from:"2026-03-13",to:"2026-03-13",note:"Ban motor bocor di jalan.",approval:"Pending",created:"2026-03-13",approved:""}
-];
-let currentFilter='all', currentType='AT';
-
-function badge(s){const m={Pending:['pending','hourglass-split'],Approved:['approved','check-circle-fill'],Rejected:['rejected','x-circle-fill']};const[c,i]=m[s]||m.Pending;return `<span class="badge-status ${c}"><i class="bi bi-${i}"></i> ${LABEL[s]}</span>`;}
-function updateCounts(){const c={all:DATA.length,AT:0,AB:0};DATA.forEach(d=>{if(c[d.type]!==undefined)c[d.type]++;});for(const k in c)document.getElementById('c-'+k).textContent=c[k];const pend=DATA.filter(d=>d.approval==='Pending').length;document.getElementById('notifBadge').textContent=pend;document.getElementById('notifPending').textContent=pend+' menunggu';}
-
-function renderTable(){
-  updateCounts();
-  const q=(document.getElementById('searchInput').value||"").toLowerCase();
-  const limit=parseInt(document.getElementById('entriesSel').value,10);
-  const ff=document.getElementById('dfFrom').value, ft=document.getElementById('dfTo').value;
-  document.getElementById('dfClear').classList.toggle('show', !!(ff||ft));
-  let rows=DATA.filter(d=>(currentFilter==='all'||d.type===currentFilter)&&inRange(d,ff,ft)&&(d.status+d.type).toLowerCase().includes(q)).slice(0,limit);
-  const body=document.getElementById('tableBody');
-  if(!rows.length){body.innerHTML=`<tr><td colspan="5"><div class="empty-state"><i class="bi bi-inbox"></i>Status tidak ditemukan.</div></td></tr>`;document.getElementById('entriesInfo').textContent="Menampilkan 0 data";return;}
-  body.innerHTML=rows.map((d,i)=>{const idx=DATA.indexOf(d);return `
-    <tr class="row-main">
-      <td><div class="no-cell"><button class="toggle" id="tg-${idx}" onclick="toggleDetail(${idx})"><i class="bi bi-plus"></i></button> ${i+1}</div></td>
-      <td><span class="type-tag ${d.type.toLowerCase()}" title="${TYPEINFO[d.type]}">${d.type}</span></td>
-      <td>${d.status}</td><td>${d.from}</td><td>${d.to}</td>
-    </tr>
-    <tr class="detail-row"><td colspan="5"><div class="detail-wrap" id="dw-${idx}"><div class="detail-inner">
-      <div class="detail-line"><span class="k">Catatan</span><span class="v">${d.note||"—"}</span></div>
-      <div class="detail-line"><span class="k">Status Persetujuan</span><span class="v">${badge(d.approval)}</span></div>
-      <div class="detail-line"><span class="k">Tanggal Dibuat</span><span class="v">${d.created||"—"}</span></div>
-      <div class="detail-line"><span class="k">Tanggal Disetujui</span><span class="v">${d.approved||'<span style="color:var(--ink-muted)">— belum disetujui</span>'}</span></div>
-      <div class="detail-actions"><button class="btn-edit"><i class="bi bi-pencil-square"></i> Edit</button><button class="btn-del" onclick="askDelete(${idx})"><i class="bi bi-trash3"></i> Hapus</button></div>
-    </div></div></td></tr>`;}).join("");
-  document.getElementById('entriesInfo').textContent=`Menampilkan ${rows.length} dari ${DATA.length} data`;
-}
-function setFilter(f,el){currentFilter=f;document.querySelectorAll('.fpill').forEach(p=>p.classList.remove('active'));el.classList.add('active');el.scrollIntoView({inline:'center',block:'nearest',behavior:'smooth'});renderTable();}
-function inRange(d,ff,ft){const to=d.to||d.from;if(ff&&to<ff)return false;if(ft&&d.from>ft)return false;return true;}
-function clearDateFilter(){document.getElementById('dfFrom').value='';document.getElementById('dfTo').value='';renderTable();}
-function syncPeriode(){const f=document.getElementById('dateFrom'),t=document.getElementById('dateTo');t.min=f.value||'';if(f.value&&t.value&&t.value<f.value)t.value=f.value;document.getElementById('periodeGroup').classList.remove('is-error');}
-function toggleDetail(idx){const w=document.getElementById('dw-'+idx),t=document.getElementById('tg-'+idx);const open=w.style.maxHeight&&w.style.maxHeight!=="0px";if(open){w.style.maxHeight="0px";t.classList.remove('is-open');t.innerHTML='<i class="bi bi-plus"></i>';}else{w.style.maxHeight=w.scrollHeight+"px";t.classList.add('is-open');t.innerHTML='<i class="bi bi-dash"></i>';}}
-
-let pendingDelete=null;
-const deleteModalEl=document.getElementById('deleteModal');
-const deleteModal=deleteModalEl ? new bootstrap.Modal(deleteModalEl) : null;
-function askDelete(i){pendingDelete=i;if(deleteModal)deleteModal.show();}
-const confirmDelete=document.getElementById('confirmDelete');
-if(confirmDelete){
-  confirmDelete.addEventListener('click',()=>{if(pendingDelete!==null){DATA.splice(pendingDelete,1);pendingDelete=null;renderTable();}if(deleteModal)deleteModal.hide();toast('Status dihapus','Pengajuan berhasil dihapus.','danger');});
-}
-
-function setType(t,el){currentType=t;document.querySelectorAll('#typeSeg button').forEach(b=>b.classList.remove('on'));el.classList.add('on');const s=document.getElementById('statusSelect');s.innerHTML='<option value="">Pilih</option>'+OPTIONS[t].map(o=>`<option>${o}</option>`).join("");document.getElementById('selectGroup').classList.remove('is-error');}
-function submitStatus(){
-  let ok=true;const sg=document.getElementById('selectGroup'),pg=document.getElementById('periodeGroup'),s=document.getElementById('statusSelect');
-  const f=document.getElementById('dateFrom').value,t=document.getElementById('dateTo').value;
-  sg.classList.remove('is-error');pg.classList.remove('is-error');
-  if(!s.value){sg.classList.add('is-error');ok=false;}
-  if(f&&t&&t<f){pg.classList.add('is-error');ok=false;}
-  if(!ok)return;
-  DATA.unshift({type:currentType,status:s.value,from:f,to:t,note:document.getElementById('noteInput').value||"",approval:"Pending",created:new Date().toISOString().slice(0,10),approved:""});
-  setType('AT',document.querySelector('#typeSeg button[data-type=AT]'));
-  document.getElementById('noteInput').value="";document.getElementById('noteCount').textContent="0";
-  renderTable();showView('list');toast('Status terkirim','Dikirim ke HR — sekarang berstatus Menunggu.');
-}
-function toast(title,msg,type){const e=document.createElement('div');e.className='wt-toast'+(type==='danger'?' danger':'');e.innerHTML=`<i class="bi bi-${type==='danger'?'trash3':'check-circle-fill'}"></i><div><div class="t-title">${title}</div><div class="t-msg">${msg}</div></div>`;document.getElementById('toastStack').appendChild(e);setTimeout(()=>{e.classList.add('is-out');setTimeout(()=>e.remove(),250);},3200);}
-function showView(n){document.querySelectorAll('.view').forEach(v=>v.classList.remove('is-active'));document.getElementById('view-'+n).classList.add('is-active');document.body.classList.toggle('view-add-active',n==='add');window.scrollTo({top:0,behavior:'smooth'});closeSidebar();}
-
 function sideToggle(){if(window.innerWidth<=991){openSidebar();}else{toggleCollapse();}}
 function toggleCollapse(){document.getElementById('sidebar').classList.toggle('mini');closeFlyoutSub();}
 function expandSidebar(){if(window.innerWidth>991)document.getElementById('sidebar').classList.remove('mini');}
@@ -422,8 +340,7 @@ function tick(){const n=new Date();const h=n.getHours();const g=h<11?'Selamat pa
   document.getElementById('clockText').textContent=n.toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long'})+' · '+n.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});}
 tick();setInterval(tick,1000);
 
-setType('AT',document.querySelector('#typeSeg button[data-type=AT]'));
-renderTable();
 </script>
+@stack('scripts')
 </body>
 </html>
