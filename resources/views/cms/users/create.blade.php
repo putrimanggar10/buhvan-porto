@@ -13,22 +13,39 @@
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="lbl mb-1 d-block">Nama</label>
-                            <input type="text" name="name" class="form-control" placeholder="Masukkan nama user">
+                            <input type="text" name="name"
+                                class="form-control @error('name') is-invalid @enderror"
+                                placeholder="Masukkan nama user" value="{{ old('name') }}">
+                            @error('name')
+                                <div class="invalid-text d-block">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6">
                             <label class="lbl mb-1 d-block">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Masukkan email user">
+                            <input type="email" name="email"
+                                class="form-control @error('email') is-invalid @enderror"
+                                placeholder="Masukkan email user" value="{{ old('email') }}">
+                            @error('email')
+                                <div class="invalid-text d-block">{{ $message }}</div>
+                            @enderror
                         </div>
+
 
                         <div class="col-md-6">
                             <label class="lbl mb-1 d-block">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Masukkan password">
+                            <input type="password" name="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                placeholder="Masukkan password">
+                            @error('password')
+                                <div class="invalid-text d-block">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="col-md-6">
                             <label class="lbl mb-1 d-block">Konfirmasi Password</label>
-                            <input type="password" class="form-control" placeholder="Ulangi password">
+                            <input type="password" name="password_confirmation" class="form-control"
+                                placeholder="Ulangi password">
                         </div>
                     </div>
 
@@ -40,3 +57,15 @@
             </div>
         </div>
     </div>
+
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(
+                    document.getElementById('createUserModal')
+                );
+
+                modal.show();
+            });
+        </script>
+    @endif

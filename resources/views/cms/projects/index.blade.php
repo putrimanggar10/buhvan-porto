@@ -1,7 +1,7 @@
 @extends('cms.layouts.app')
 
 @section('content')
-  
+
 
     <section class="view is-active" id="view-list">
         <div class="page-head">
@@ -23,9 +23,10 @@
                     Inactive
                 </button>
             </div>
-            <a href="/dashboard/projects/create" class="btn-add">
+            <button href="/dashboard/projects/create" class="btn-add"
+                onclick="window.location.href='{{ route('cms.projects.create') }}'">
                 <i class="bi bi-plus-lg"></i> Tambah Project
-            </a>
+            </button>
         </div>
 
         <div class="card-surface">

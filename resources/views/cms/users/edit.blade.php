@@ -12,33 +12,56 @@
                 <form action="{{ route('cms.users.update', $user->id) }}" method="POST">
                     @csrf
                     @method('PUT')
+
+                    <input type="hidden" name="form_type" value="edit">
+                    <input type="hidden" name="user_id" value="{{ $user->id }}">
+
                     <div class="row g-3">
                         <div class="col-md-6">
                             <label class="lbl mb-1 d-block">Nama</label>
-                            <input type="text" name="name" class="form-control" placeholder="Masukkan nama user"
-                                value="{{ old('name', $user->name) }}">
-                            @error('name')
-                                <div class="invalid-text d-block">{{ $message }}</div>
-                            @enderror
+                            <input type="text" name="name"
+                                class="form-control @error('name') is-invalid @enderror"
+                                placeholder="Masukkan nama user"
+                                value="{{ old('user_id') == $user->id ? old('name') : $user->name }}">
+
+                            @if (old('user_id') == $user->id)
+                                @error('name')
+                                    <div class="invalid-text d-block">{{ $message }}</div>
+                                @enderror
+                            @endif
                         </div>
 
                         <div class="col-md-6">
                             <label class="lbl mb-1 d-block">Email</label>
-                            <input type="email" name="email" class="form-control" placeholder="Masukkan email user"
-                                value="{{ old('email', $user->email) }}">
-                            @error('email')
-                                <div class="invalid-text d-block">{{ $message }}</div>
-                            @enderror
+                            <input type="email" name="email"
+                                class="form-control @error('email') is-invalid @enderror"
+                                placeholder="Masukkan email user"
+                                value="{{ old('user_id') == $user->id ? old('email') : $user->email }}">
+
+                            @if (old('user_id') == $user->id)
+                                @error('email')
+                                    <div class="invalid-text d-block">{{ $message }}</div>
+                                @enderror
+                            @endif
                         </div>
 
                         <div class="col-md-6">
-                            <label class="lbl mb-1 d-block">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Masukkan password">
+                            <label class="lbl mb-1 d-block">Password Baru</label>
+                            <input type="password" name="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                placeholder="Kosongkan jika tidak diganti">
+
+                            @if (old('user_id') == $user->id)
+                                @error('password')
+                                    <div class="invalid-text d-block">{{ $message }}</div>
+                                @enderror
+                            @endif
                         </div>
 
                         <div class="col-md-6">
                             <label class="lbl mb-1 d-block">Konfirmasi Password</label>
-                            <input type="password" class="form-control" placeholder="Ulangi password">
+                            <input type="password" name="password_confirmation" class="form-control"
+                                placeholder="Ulangi password baru">
                         </div>
                     </div>
 
@@ -51,3 +74,17 @@
         </div>
     </div>
 @endforeach
+
+@if ($errors->any() && old('form_type') === 'edit')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalId = 'editModal-{{ old('user_id') }}';
+            const modalElement = document.getElementById(modalId);
+
+            if (modalElement) {
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+            }
+        });
+    </script>
+@endif

@@ -2138,7 +2138,7 @@
 
 
 </head>
-
+        @include('cms.layouts.notification')
 <body>
     <div class="app">
 
