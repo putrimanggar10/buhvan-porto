@@ -21,16 +21,20 @@
         <div class="card-surface">
             <div class="table-toolbar">
                 <div class="tt-left">
-                    <div class="entries">Tampilkan
+                    <div class="entries">
+                        Tampilkan
                         <select id="entriesSel" onchange="renderTable()">
-                            <option>10</option>
-                            <option>25</option>
-                            <option>50</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
                         </select>
                     </div>
                 </div>
-                <div class="search-box"><i class="bi bi-search"></i><input type="text" id="searchInput"
-                        placeholder="Cari status..." oninput="renderTable()"></div>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search...">
+
+                </div>
             </div>
             <div class="table-responsive">
                 <table class="wt-table">
@@ -77,7 +81,7 @@
                                                 </button>
 
                                                 <button class="btn-del" data-bs-toggle="modal"
-                                                    data-bs-target="#deletemodal-{{ $user->id }}">
+                                                    data-bs-target="#deleteModal-{{ $user->id }}">
                                                     <i class="bi bi-trash3"></i>
                                                     Hapus
                                                 </button>
@@ -224,10 +228,29 @@
 
 @push('scripts')
     <script>
+        function detailRow(row) {
+            return row.nextElementSibling;
+        }
+
+        function closeDetail(row) {
+            const button = row.querySelector('.toggle');
+            const wrap = detailRow(row)?.querySelector('.detail-wrap');
+
+            if (!button || !wrap) return;
+
+            wrap.style.maxHeight = '0px';
+            button.classList.remove('is-open');
+            button.innerHTML = '<i class="bi bi-plus"></i>';
+        }
+
         function toggleDetail(index) {
             const wrap = document.getElementById('dw-' + index);
             const button = document.getElementById('tg-' + index);
+
+            if (!wrap || !button) return;
+
             const open = wrap.style.maxHeight && wrap.style.maxHeight !== '0px';
+
             if (open) {
                 wrap.style.maxHeight = '0px';
                 button.classList.remove('is-open');
@@ -239,12 +262,63 @@
             }
         }
 
-        function closeDetail(row) {
-            const button = row.querySelector('.toggle');
-            const wrap = detailRow(row).querySelector('.detail-wrap');
-            wrap.style.maxHeight = '0px';
-            button.classList.remove('is-open');
-            button.innerHTML = '<i class="bi bi-plus"></i>';
+        function renderTable() {
+            const query = (document.getElementById('searchInput').value || '').toLowerCase();
+            const limit = parseInt(document.getElementById('entriesSel').value, 10);
+            const rows = Array.from(document.querySelectorAll('.status-row'));
+            const entriesInfo = document.getElementById('entriesInfo');
+
+            let shown = 0;
+            let matched = 0;
+
+            rows.forEach(row => {
+                const detail = detailRow(row);
+                const rowText = row.dataset.status || row.textContent.toLowerCase();
+
+                const matchSearch = rowText.includes(query);
+
+                if (matchSearch) {
+                    matched++;
+                }
+
+                const visible = matchSearch && shown < limit;
+
+                row.style.display = visible ? '' : 'none';
+
+                if (detail) {
+                    detail.style.display = visible ? '' : 'none';
+                }
+
+                if (visible) {
+                    shown++;
+
+                    const rowNumber = row.querySelector('.row-number');
+                    if (rowNumber) {
+                        rowNumber.textContent = shown;
+                    }
+                } else {
+                    closeDetail(row);
+                }
+            });
+
+            const emptyRow = document.getElementById('emptyRow');
+
+            if (emptyRow) {
+                emptyRow.style.display = shown ? 'none' : '';
+            }
+
+            if (entriesInfo) {
+                entriesInfo.textContent = shown ?
+                    `Menampilkan ${shown} dari ${matched} data` :
+                    'Menampilkan 0 data';
+            }
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('searchInput').addEventListener('input', renderTable);
+            document.getElementById('entriesSel').addEventListener('change', renderTable);
+
+            renderTable();
+        });
     </script>
 @endpush
