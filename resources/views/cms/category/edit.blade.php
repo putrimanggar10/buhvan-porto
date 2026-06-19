@@ -1,49 +1,54 @@
-<!-- BEGIN: Modal Edit Content -->
 @foreach ($categories as $category)
-    <div id="edit-{{ $category->id }}" class="modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- BEGIN: Modal Header -->
-                <div class="modal-header">
-                    <h2 class="font-medium text-base mr-auto">Edit Files</h2>
-                    <div class="dropdown sm:hidden">
-                        <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"
-                            data-tw-toggle="dropdown">
-                            <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
-                        </a>
+    <div class="modal fade" id="editModal-{{ $category->id }}" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-4">
+                <div class="d-flex align-items-start justify-content-between gap-3 mb-4">
+                    <div>
+                        <h5 class="display-font fw-bold mb-1" style="color:var(--ink)">Edit Category</h5>
                     </div>
-                </div>
-                <!-- END: Modal Header -->
-                <form action="/dashboard/category/{{ $category->id }}" method="post" enctype="multipart/form-data">
-                    @method('PUT')
-                    @csrf
-                    <!-- BEGIN: Modal Body -->
-                    <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                        <!-- Name Category Field -->
-                        <div class="col-span-12">
-                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name
-                                Category</label>
-                            <input id="name" name="name" type="text" class="form-control name-input"
-                                value="{{ old('name', $category->name) }}">
-                            {{-- @error('name')
-                                <div class="text-danger mt-2 text-sm">
-                                    {{ $message }}
-                                </div>
-                            @enderror --}}
-                        </div>
 
+                </div>
+
+                <form action="{{ route('cms.category.update', $category->id) }}" method="POST">
+                    @csrf
+                    @method('PUT')
+
+                    <input type="hidden" name="form_type" value="edit">
+                    <input type="hidden" name="category_id" value="{{ $category->id }}">
+
+                    <div class="row g-3">
+                        <label class="lbl mb-1 d-block">Name</label>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                            placeholder="Masukkan nama user"
+                            value="{{ old('category_id') == $category->id ? old('name') : $category->name }}">
+
+                        @if (old('category_id') == $category->id)
+                            @error('name')
+                                <div class="invalid-text d-block">{{ $message }}</div>
+                            @enderror
+                        @endif
                     </div>
-                    <!-- END: Modal Body -->
-                    <!-- BEGIN: Modal Footer -->
-                    <div class="modal-footer">
-                        <button type="button" data-tw-dismiss="modal"
-                            class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
-                        <button type="submit" class="btn btn-primary w-20">Send</button>
+
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+                        <button type="button" class="btn-ghost" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn-submit">Simpan</button>
                     </div>
-                    <!-- END: Modal Footer -->
                 </form>
             </div>
         </div>
     </div>
 @endforeach
-<!-- END: Modal Content -->
+
+@if ($errors->any() && old('form_type') === 'edit')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modalId = 'editModal-{{ old('category_id') }}';
+            const modalElement = document.getElementById(modalId);
+
+            if (modalElement) {
+                const modal = new bootstrap.Modal(modalElement);
+                modal.show();
+            }
+        });
+    </script>
+@endif

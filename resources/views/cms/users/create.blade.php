@@ -12,10 +12,10 @@
                     @csrf
                     <div class="row g-3">
                         <div class="col-md-6">
-                            <label class="lbl mb-1 d-block">Nama</label>
+                            <label class="lbl mb-1 d-block">Name</label>
                             <input type="text" name="name"
                                 class="form-control @error('name') is-invalid @enderror"
-                                placeholder="Masukkan nama user" value="{{ old('name') }}">
+                                placeholder="Masukkan nama user" value="{{ old('name') }}" autofocus>
                             @error('name')
                                 <div class="invalid-text d-block">{{ $message }}</div>
                             @enderror

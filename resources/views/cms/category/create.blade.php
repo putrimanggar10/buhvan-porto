@@ -1,49 +1,41 @@
-<!-- BEGIN: Modal Content -->
-<div id="modal-add" class="modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <!-- BEGIN: Modal Header -->
-            <div class="modal-header">
-                <h2 class="font-medium text-base mr-auto">New Category</h2>
-                <div class="dropdown sm:hidden">
-                    <a class="dropdown-toggle w-5 h-5 block" href="javascript:;" aria-expanded="false"
-                        data-tw-toggle="dropdown">
-                        <i data-lucide="more-horizontal" class="w-5 h-5 text-slate-500"></i>
-                    </a>
-                </div>
-            </div>
-            <!-- END: Modal Header -->
-
-            <!-- BEGIN: Modal Form -->
-            <form action="/dashboard/category" method="POST" enctype="multipart/form-data">
-                @csrf
-                <!-- BEGIN: Modal Body -->
-                <div class="modal-body grid grid-cols-12 gap-4 gap-y-3">
-                    <!-- Name Category Field -->
-                    <div class="col-span-12">
-                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Name Category</label>
-                        <input id="name" name="name" type="text" class="form-control"
-                            value="{{ old('name') }}" placeholder="Enter category name">
-                        {{-- @error('name')
-                            <div class="text-danger mt-2 text-sm">
-                                {{ $message }}
-                            </div>
-                        @enderror --}}
+    <div class="modal fade" id="createUserModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content p-4">
+                <div class="d-flex align-items-start justify-content-between gap-3 mb-4">
+                    <div>
+                        <h5 class="display-font fw-bold mb-1" style="color:var(--ink)">Tambah User</h5>
                     </div>
 
                 </div>
-                <!-- END: Modal Body -->
 
-                <!-- BEGIN: Modal Footer -->
-                <div class="modal-footer">
-                    <button type="button" data-tw-dismiss="modal"
-                        class="btn btn-outline-secondary w-20 mr-1">Cancel</button>
-                    <button type="submit" class="btn btn-primary w-20">Save</button>
-                </div>
-                <!-- END: Modal Footer -->
-            </form>
-            <!-- END: Modal Form -->
+                <form action="{{ route('cms.category.store') }}" method="POST">
+                    @csrf
+                    <div class="row g-3">
+                        <label class="lbl mb-1 d-block">Name</label>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                            placeholder="Masukkan nama user" value="{{ old('name') }}">
+                        @error('name')
+                            <div class="invalid-text d-block">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-2 mt-4">
+                        <button type="button" class="btn-ghost" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn-submit">Simpan</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
-<!-- END: Modal Content -->
+
+    @if ($errors->any())
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const modal = new bootstrap.Modal(
+                    document.getElementById('createUserModal')
+                );
+
+                modal.show();
+            });
+        </script>
+    @endif

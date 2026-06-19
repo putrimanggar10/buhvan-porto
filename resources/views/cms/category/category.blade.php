@@ -1,155 +1,239 @@
 @extends('cms.layouts.app')
-@section('container')
-    <h2 class="intro-y text-lg font-medium mt-8 xl:mt-24">
-        Categories
-    </h2>
-    <div class="grid grid-cols-12 gap-6 mt-5">
-        <div class="intro-y col-span-12 flex flex-wrap sm:flex-nowrap items-center mt-2">
-            <button class="btn btn-primary shadow-md mr-2" data-tw-toggle="modal" data-tw-target="#modal-add">Add New
-                Category</button>
-            <div class="hidden md:block mx-auto text-slate-500"></div>
-            <div class="w-full sm:w-auto mt-3 sm:mt-0 sm:ml-auto md:ml-0">
-                <div class="w-56 relative text-slate-500">
-                    <form action="{{ url()->current() }}" method="get">
-                        <input type="text" name="search" id="search" class="form-control w-56 box pr-10"
-                            placeholder="Search..." value="{{ old('search', request('search')) }}">
-                        <i class="w-4 h-4 absolute my-auto inset-y-0 mr-3 right-0" data-lucide="search"></i>
-                    </form>
+
+@section('content')
+    <section class="view is-active" id="view-list">
+        <div class="page-head">
+            <div>
+                <h1>Category Managements</h1>
+            </div>
+            <div class="breadcrumb-mini">Dashboard <span class="sep">/</span>Category Managements</div>
+        </div>
+
+        <div class="action-row">
+            <div class="filter-bar" id="filterBar">
+            </div>
+            <button class="btn-add" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                <i class="bi bi-plus-lg"></i> Tambah Category
+            </button>
+        </div>
+
+
+        <div class="card-surface">
+            <div class="table-toolbar">
+                <div class="tt-left">
+                    <div class="entries">
+                        Tampilkan
+                        <select id="entriesSel" onchange="renderTable()">
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="search-box">
+                    <i class="bi bi-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search...">
+
                 </div>
             </div>
-        </div>
-        <!-- BEGIN: Data List -->
-        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-            <table class="table table-report -mt-2">
-                <thead>
-                    <tr>
-                        <th class="whitespace-nowrap">CATEGORY NAME</th>
-                        <th class="text-center whitespace-nowrap">ACTIONS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($categories as $category)
-                        <tr class="intro-x">
-                            <td>
-                                <a href="" class="font-medium whitespace-nowrap">{{ $category->name }}</a>
-                            </td>
-                            <td class="table-report__action w-56">
-                                <div class="flex justify-center items-center">
-                                    <a class="flex items-center mr-3" href="javascript:;" data-tw-toggle="modal"
-                                        data-tw-target="#edit-{{ $category->id }}">
-                                        <i data-lucide="check-square" class="w-4 h-4 mr-1"></i> Edit
-                                    </a>
-                                    <a class="flex items-center text-danger" href="javascript:;" data-tw-toggle="modal"
-                                        data-tw-target="#delete-modal-{{ $category->id }}">
-                                        <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                    @empty
+            <div class="table-responsive">
+                <table class="wt-table align-middle">
+                    <thead>
                         <tr>
-                            <td colspan="3" class="text-center">No Categories Available</td>
+                            <th class="text-nowrap" style="width: 80px;">
+                                No <i class="bi bi-arrow-down-up sort"></i>
+                            </th>
+
+                            <th>
+                                Name <i class="bi bi-arrow-down-up sort"></i>
+                            </th>
+
+                            <th class="text-center text-nowrap" style="width: 230px;">
+                                Action
+                            </th>
                         </tr>
-                    @endforelse
-                </tbody>
-            </table>
-            <!-- BEGIN: Pagination -->
-            <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-6">
-                <div class="w-full flex justify-center"> <!-- Menambahkan wrapper flex yang men-center-kan konten -->
-                    <nav>
-                        <ul class="pagination">
-                            @if ($categories->onFirstPage())
-                                <li class="page-item disabled">
-                                    <a class="page-link">
-                                        <i class="w-4 h-4" data-lucide="chevrons-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item disabled">
-                                    <a class="page-link">
-                                        <i class="w-4 h-4" data-lucide="chevron-left"></i>
-                                    </a>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $categories->url(1) }}">
-                                        <i class="w-4 h-4" data-lucide="chevrons-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $categories->url($categories->currentPage() - 1) }}">
-                                        <i class="w-4 h-4" data-lucide="chevron-left"></i>
-                                    </a>
-                                </li>
-                            @endif
+                    </thead>
 
-                            <li class="page-item disabled"> <a class="page-link">...</a> </li>
-                            @for ($i = 1; $i <= $categories->lastPage(); $i++)
-                                <li class="page-item {{ $i == $categories->currentPage() ? 'active' : '' }}">
-                                    <a class="page-link" href="{{ $categories->url($i) }}">{{ $i }}</a>
-                                </li>
-                            @endfor
-                            <li class="page-item disabled"> <a class="page-link">...</a> </li>
+                    <tbody id="tableBody">
+                        @forelse ($categories as $index => $category)
+                            <tr class="row-main status-row" data-status="{{ strtolower($category->name) }}">
+                                <td class="align-middle">
+                                    <div class="no-cell">
+                                        <span class="row-number">
+                                            {{ $categories->firstItem() + $index }}
+                                        </span>
+                                    </div>
+                                </td>
 
-                            @if ($categories->hasMorePages())
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $categories->url($categories->currentPage() + 1) }}">
-                                        <i class="w-4 h-4" data-lucide="chevron-right"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="{{ $categories->url($categories->lastPage()) }}">
-                                        <i class="w-4 h-4" data-lucide="chevrons-right"></i>
-                                    </a>
-                                </li>
-                            @else
-                                <li class="page-item">
-                                    <a class="page-link">
-                                        <i class="w-4 h-4" data-lucide="chevron-right"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item disabled">
-                                    <a class="page-link">
-                                        <i class="w-4 h-4" data-lucide="chevrons-right"></i>
-                                    </a>
-                                </li>
-                            @endif
-                        </ul>
-                    </nav>
-                </div>
+                                <td class="align-middle">
+                                    {{ $category->name }}
+                                </td>
+
+                                <td class="align-middle text-end">
+                                    <div class="d-flex justify-content-end align-items-center flex-nowrap gap-2">
+                                        <button type="button" class="btn-edit text-nowrap" data-bs-toggle="modal"
+                                            data-bs-target="#editModal-{{ $category->id }}">
+                                            <i class="bi bi-pencil-square"></i>
+                                            Edit
+                                        </button>
+
+                                        <button type="button" class="btn-del text-nowrap" data-bs-toggle="modal"
+                                            data-bs-target="#deleteModal-{{ $category->id }}">
+                                            <i class="bi bi-trash3"></i>
+                                            Hapus
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr id="emptyRow">
+                                <td colspan="3">
+                                    <div class="empty-state">
+                                        <i class="bi bi-inbox"></i>
+                                        Category tidak ditemukan.
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
-            <!-- END: Pagination -->
-
+            <div class="table-foot">
+                <div class="info" id="entriesInfo"></div>
+                <div class="pager"><button disabled><i class="bi bi-chevron-left"></i></button><button
+                        class="is-active">1</button><button disabled><i class="bi bi-chevron-right"></i></button></div>
+            </div>
         </div>
-        <!-- END: Data List -->
-    </div>
-    @foreach ($categories as $category)
-        <div id="delete-modal-{{ $category->id }}" class="modal" tabindex="-1" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body p-0">
-                        <div class="p-5 text-center">
-                            <i data-lucide="x-circle" class="w-16 h-16 text-danger mx-auto mt-3"></i>
-                            <div class="text-3xl mt-5">Apa Kamu Yakin?</div>
-                            <div class="text-slate-500 mt-2">
-                                Benar-benar ingin menghapusnya?<br>Proses ini
-                                tidak dapat dibatalkan.
-                            </div>
-                        </div>
-                        <div class="px-5 pb-8 text-center">
+    </section>
 
-                            <form action="/dashboard/category/{{ $category->id }}" method="post">
-                                @method('DELETE')
-                                @csrf
-                                <button type="button" data-tw-dismiss="modal"
-                                    class="btn btn-outline-secondary w-24 mr-1">Cancel</button>
-                                <button type="submit" class="btn btn-danger w-24">Delete</button>
-                            </form>
-                        </div>
+    @foreach ($categories as $category)
+        <div class="modal fade" id="deleteModal-{{ $category->id }}" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content text-center p-4">
+                    <div class="modal-icon"><i class="bi bi-trash3"></i></div>
+                    <h5 class="display-font fw-bold mb-1" style="color:var(--ink)">Hapus ini?</h5>
+                    <p class="mb-4" style="color:var(--ink-soft)">Category akan dihapus permanen.</p>
+                    <div class="d-flex gap-2 justify-content-center">
+                        <form action="{{ route('cms.category.destroy', $category->id) }}" method="post">
+                            @method('DELETE')
+                            @csrf
+                            <button class="btn-ghost" data-bs-dismiss="modal">
+                                Batal
+                            </button>
+                            <button type="submit" class="btn-del" id="confirmDelete">
+                                <i class="bi bi-trash3"></i>
+                                Ya, hapus
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     @endforeach
-    @include('cms.category.create')
-    @include('cms.category.edit')
+
+
+
+    <button class="fab" data-bs-toggle="modal" data-bs-target="#createUserModal" title="Tambah Status"><i
+            class="bi bi-plus-lg"></i></button>
+    <div class="toast-stack" id="toastStack"></div>
 @endsection
+@include('cms.category.create')
+@include('cms.category.edit')
+
+
+@push('scripts')
+    <script>
+        function detailRow(row) {
+            return row.nextElementSibling;
+        }
+
+        function closeDetail(row) {
+            const button = row.querySelector('.toggle');
+            const wrap = detailRow(row)?.querySelector('.detail-wrap');
+
+            if (!button || !wrap) return;
+
+            wrap.style.maxHeight = '0px';
+            button.classList.remove('is-open');
+            button.innerHTML = '<i class="bi bi-plus"></i>';
+        }
+
+        function toggleDetail(index) {
+            const wrap = document.getElementById('dw-' + index);
+            const button = document.getElementById('tg-' + index);
+
+            if (!wrap || !button) return;
+
+            const open = wrap.style.maxHeight && wrap.style.maxHeight !== '0px';
+
+            if (open) {
+                wrap.style.maxHeight = '0px';
+                button.classList.remove('is-open');
+                button.innerHTML = '<i class="bi bi-plus"></i>';
+            } else {
+                wrap.style.maxHeight = wrap.scrollHeight + 'px';
+                button.classList.add('is-open');
+                button.innerHTML = '<i class="bi bi-dash"></i>';
+            }
+        }
+
+        function renderTable() {
+            const query = (document.getElementById('searchInput').value || '').toLowerCase();
+            const limit = parseInt(document.getElementById('entriesSel').value, 10);
+            const rows = Array.from(document.querySelectorAll('.status-row'));
+            const entriesInfo = document.getElementById('entriesInfo');
+
+            let shown = 0;
+            let matched = 0;
+
+            rows.forEach(row => {
+                const detail = detailRow(row);
+                const rowText = row.dataset.status || row.textContent.toLowerCase();
+
+                const matchSearch = rowText.includes(query);
+
+                if (matchSearch) {
+                    matched++;
+                }
+
+                const visible = matchSearch && shown < limit;
+
+                row.style.display = visible ? '' : 'none';
+
+                if (detail) {
+                    detail.style.display = visible ? '' : 'none';
+                }
+
+                if (visible) {
+                    shown++;
+
+                    const rowNumber = row.querySelector('.row-number');
+                    if (rowNumber) {
+                        rowNumber.textContent = shown;
+                    }
+                } else {
+                    closeDetail(row);
+                }
+            });
+
+            const emptyRow = document.getElementById('emptyRow');
+
+            if (emptyRow) {
+                emptyRow.style.display = shown ? 'none' : '';
+            }
+
+            if (entriesInfo) {
+                entriesInfo.textContent = shown ?
+                    `Menampilkan ${shown} dari ${matched} data` :
+                    'Menampilkan 0 data';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('searchInput').addEventListener('input', renderTable);
+            document.getElementById('entriesSel').addEventListener('change', renderTable);
+
+            renderTable();
+        });
+    </script>
+@endpush

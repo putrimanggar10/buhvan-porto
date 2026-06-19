@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rule;
+
 
 class CategoryController extends Controller
 {
@@ -19,7 +22,7 @@ class CategoryController extends Controller
             $search = $request->input('search');
             $query->where('name', 'like', "%{$search}%");
         }
-        $category = $query->paginate(10);
+        $category = $query->paginate(50);
 
         return view('cms.category.category', [
             'title' => 'Category',
@@ -42,13 +45,39 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        $validatedData = $request->validate(
+            [
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    'unique:categories,name',
+                ],
+            ],
+            [
+                'name.required' => 'Nama kategori wajib diisi.',
+                'name.string' => 'Nama kategori harus berupa teks.',
+                'name.max' => 'Nama kategori maksimal 255 karakter.',
+                'name.unique' => 'Nama kategori sudah digunakan.',
+            ]
+        );
 
-        Category::create($validated);
+        try {
+            Category::create($validatedData);
 
-        return redirect()->back()->with('success', 'Category created successfully.');
+            return redirect('/dashboard/category')
+                ->with('success', 'Category berhasil ditambahkan.');
+        } catch (\Throwable $e) {
+            Log::error('Gagal menambahkan category', [
+                'message' => $e->getMessage(),
+                'data' => $validatedData,
+            ]);
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Gagal menambahkan category. Silakan coba lagi.');
+        }
     }
 
     /**
@@ -72,15 +101,41 @@ class CategoryController extends Controller
      */
     public function update(Request $request,  $id)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-        ]);
+        $validatedData = $request->validate(
+            [
+                'name' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    Rule::unique('categories', 'name')->ignore($id),
+                ],
+            ],
+            [
+                'name.required' => 'Nama kategori wajib diisi.',
+                'name.string' => 'Nama kategori harus berupa teks.',
+                'name.max' => 'Nama kategori maksimal 255 karakter.',
+                'name.unique' => 'Nama kategori sudah digunakan.',
+            ]
+        );
 
         try {
-            Category::where('id', $id)->update($validatedData);
-            return redirect('/dashboard/category')->with('success', 'Category Berhasil di Update');
-        } catch (\Exception $e) {
-            return redirect('/dashboard/category')->with('error', 'Terjadi kesalahan, Silahkan coba lagi.');
+            $category = Category::findOrFail($id);
+
+            $category->update($validatedData);
+
+            return redirect('/dashboard/category')
+                ->with('success', 'Category berhasil diupdate.');
+        } catch (\Throwable $e) {
+            Log::error('Gagal mengupdate category', [
+                'category_id' => $id,
+                'message' => $e->getMessage(),
+                'data' => $validatedData,
+            ]);
+
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with('error', 'Gagal mengupdate category. Silakan coba lagi.');
         }
     }
 
@@ -89,12 +144,21 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
         try {
-            Category::destroy($category->id);
-            return redirect('/dashboard/category')->with('success', 'Category Berhasil di Hapus');
-        } catch (\Exception $e) {
-            return redirect('/dashboard/category')->with('error', 'Gagal Menghapus. Silakan Coba Lagi.');
+            $category = Category::findOrFail($id);
+
+            $category->delete();
+
+            return redirect('/dashboard/category')
+                ->with('success', 'Category berhasil dihapus.');
+        } catch (\Throwable $e) {
+            Log::error('Gagal menghapus category', [
+                'category_id' => $id,
+                'message' => $e->getMessage(),
+            ]);
+
+            return redirect('/dashboard/category')
+                ->with('error', 'Gagal menghapus category. Silakan coba lagi.');
         }
     }
 }

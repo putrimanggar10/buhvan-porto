@@ -20,7 +20,7 @@ class UserController extends Controller
                 ->orWhere('email', 'like', "%{$search}%");
         }
 
-        $users = $query->latest()->paginate(10);
+        $users = $query->latest()->paginate(50);
 
         return view('cms.users.users', [
             'title' => 'User Profil',
